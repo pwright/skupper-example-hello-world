@@ -25,8 +25,8 @@ sites:
     kubeconfig: ~/.kube/config-west
     namespace: west
   east:
-    kubeconfig: ~/.kube/config-east
-    namespace: east
+    kubeconfig: ~/.kube/config-local
+    namespace: local
 steps:
   - standard: configure_separate_console_sessions
   - standard: access_your_clusters
@@ -37,9 +37,6 @@ steps:
       west:
         - run: skupper init
           await: [deployment/skupper-service-controller, deployment/skupper-router]
-      east:
-        - run: skupper init --ingress none
-          await: [deployment/skupper-service-controller, deployment/skupper-router]
     postamble: |
       Here we are using `--ingress none` in one of the namespaces
       simply to make local development with Minikube easier.  (It's
@@ -47,15 +44,6 @@ steps:
       none` option is not required if your two namespaces are on
       different hosts or on public clusters.
   - standard: check_the_status_of_your_namespaces
-  - title: Link your namespaces
-    preamble: !string link_your_namespaces_preamble
-    commands:
-      west:
-        - run: skupper token create ~/west.token
-      east:
-        - run: skupper link create ~/west.token
-        - run: skupper link status --wait 30
-    postamble: !string link_your_namespaces_postamble
   - title: Deploy the frontend and backend services
     preamble: |
       Use `kubectl create deployment` to deploy the frontend service
@@ -65,24 +53,20 @@ steps:
         - run: kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
           await: [deployment/hello-world-frontend]
       east:
-        - run: kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
+        - run: cd backend;python ./main.py
           await: [deployment/hello-world-backend]
   - title: Expose the backend service
     preamble: |
-      We now have two namespaces linked to form a Skupper network, but
-      no services are exposed on it.  Skupper uses the `skupper
-      expose` command to select a service from one namespace for
-      exposure on all the linked namespaces.
+      We now have a namespace running a frontend, but
+      no backend service is available to it. 
 
-      Use `skupper expose` to expose the backend service to the
+      Use `skupper gateway` commands to expose the backend service to the
       frontend service.
     commands:
       east:
-        - run: skupper expose deployment/hello-world-backend --port 8080
-          sleep: 30
-          output: |
-            NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
-            hello-world-backend    ClusterIP      10.106.92.175    <none>           8080/TCP         1m31s
+        - run:  skupper gateway init --type podman
+        - run: skupper service create hello-world-backend 8080
+        - run: skupper gateway bind hello-world-backend 192.168.1.14 8080
   - title: Expose the frontend service
     preamble: |
       We have established connectivity between the two namespaces and

@@ -20,11 +20,10 @@ across cloud providers, data centers, and edge sites.
 * [Step 3: Set up your namespaces](#step-3-set-up-your-namespaces)
 * [Step 4: Install Skupper in your namespaces](#step-4-install-skupper-in-your-namespaces)
 * [Step 5: Check the status of your namespaces](#step-5-check-the-status-of-your-namespaces)
-* [Step 6: Link your namespaces](#step-6-link-your-namespaces)
-* [Step 7: Deploy the frontend and backend services](#step-7-deploy-the-frontend-and-backend-services)
-* [Step 8: Expose the backend service](#step-8-expose-the-backend-service)
-* [Step 9: Expose the frontend service](#step-9-expose-the-frontend-service)
-* [Step 10: Test the application](#step-10-test-the-application)
+* [Step 6: Deploy the frontend and backend services](#step-6-deploy-the-frontend-and-backend-services)
+* [Step 7: Expose the backend service](#step-7-expose-the-backend-service)
+* [Step 8: Expose the frontend service](#step-8-expose-the-frontend-service)
+* [Step 9: Test the application](#step-9-test-the-application)
 * [Summary](#summary)
 * [Cleaning up](#cleaning-up)
 * [Next steps](#next-steps)
@@ -90,7 +89,7 @@ Console for _west_:
 export KUBECONFIG=~/.kube/config-west
 ~~~
 
-Console for _east_:
+Console for _local_:
 
 ~~~ shell
 export KUBECONFIG=~/.kube/config-east
@@ -124,7 +123,7 @@ kubectl create namespace west
 kubectl config set-context --current --namespace west
 ~~~
 
-Console for _east_:
+Console for _local_:
 
 ~~~ shell
 kubectl create namespace east
@@ -148,12 +147,6 @@ Console for _west_:
 skupper init
 ~~~
 
-Console for _east_:
-
-~~~ shell
-skupper init --ingress none
-~~~
-
 Here we are using `--ingress none` in one of the namespaces
 simply to make local development with Minikube easier.  (It's
 tricky to run two Minikube tunnels on one host.)  The `--ingress
@@ -171,7 +164,7 @@ Console for _west_:
 skupper status
 ~~~
 
-Console for _east_:
+Console for _local_:
 
 ~~~ shell
 skupper status
@@ -188,41 +181,7 @@ The credentials for internal console-auth mode are held in secret: 'skupper-cons
 As you move through the steps below, you can use `skupper status` at
 any time to check your progress.
 
-## Step 6: Link your namespaces
-
-Creating a link requires use of two `skupper` commands in conjunction,
-`skupper token create` and `skupper link create`.
-
-The `skupper token create` command generates a secret token that
-signifies permission to create a link.  The token also carries the
-link details.  Then, in a remote namespace, The `skupper link create`
-command uses the token to create a link to the namespace that
-generated it.
-
-**Note:** The link token is truly a *secret*.  Anyone who has the
-token can link to your namespace.  Make sure that only those you trust
-have access to it.
-
-First, use `skupper token create` in one namespace to generate the
-token.  Then, use `skupper link create` in the other to create a link.
-
-Console for _west_:
-
-~~~ shell
-skupper token create ~/west.token
-~~~
-
-Console for _east_:
-
-~~~ shell
-skupper link create ~/west.token
-skupper link status --wait 30
-~~~
-
-If your console sessions are on different machines, you may need to
-use `scp` or a similar tool to transfer the token.
-
-## Step 7: Deploy the frontend and backend services
+## Step 6: Deploy the frontend and backend services
 
 Use `kubectl create deployment` to deploy the frontend service
 in `west` and the backend service in `east`.
@@ -233,36 +192,29 @@ Console for _west_:
 kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
 ~~~
 
-Console for _east_:
+Console for _local_:
 
 ~~~ shell
-kubectl create deployment hello-world-backend --image quay.io/skupper/hello-world-backend
+cd backend;python ./main.py
 ~~~
 
-## Step 8: Expose the backend service
+## Step 7: Expose the backend service
 
-We now have two namespaces linked to form a Skupper network, but
-no services are exposed on it.  Skupper uses the `skupper
-expose` command to select a service from one namespace for
-exposure on all the linked namespaces.
+We now have a namespace running a frontend, but
+no backend service is available to it. 
 
-Use `skupper expose` to expose the backend service to the
+Use `skupper gateway` commands to expose the backend service to the
 frontend service.
 
-Console for _east_:
+Console for _local_:
 
 ~~~ shell
-skupper expose deployment/hello-world-backend --port 8080
+skupper gateway init --type podman
+skupper service create hello-world-backend 8080
+skupper gateway bind hello-world-backend 192.168.1.14 8080
 ~~~
 
-Sample output:
-
-~~~
-NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
-hello-world-backend    ClusterIP      10.106.92.175    <none>           8080/TCP         1m31s
-~~~
-
-## Step 9: Expose the frontend service
+## Step 8: Expose the frontend service
 
 We have established connectivity between the two namespaces and
 made the backend in `east` available to the frontend in `west`.
@@ -295,7 +247,7 @@ skupper-router         LoadBalancer   10.110.252.252   10.110.252.252   55671:32
 skupper-router-local   ClusterIP      10.96.123.13     <none>           5671/TCP                          86s
 ~~~
 
-## Step 10: Test the application
+## Step 9: Test the application
 
 Look up the external URL and use `curl` to send a request.
 
@@ -349,7 +301,7 @@ kubectl delete service/hello-world-frontend
 kubectl delete deployment/hello-world-frontend
 ~~~
 
-Console for _east_:
+Console for _local_:
 
 ~~~ shell
 skupper delete
