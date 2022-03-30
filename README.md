@@ -147,12 +147,6 @@ Console for _west_:
 skupper init
 ~~~
 
-Here we are using `--ingress none` in one of the namespaces
-simply to make local development with Minikube easier.  (It's
-tricky to run two Minikube tunnels on one host.)  The `--ingress
-none` option is not required if your two namespaces are on
-different hosts or on public clusters.
-
 ## Step 5: Check the status of your namespaces
 
 Use `skupper status` in each console to check that Skupper is
@@ -195,12 +189,13 @@ kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-wor
 Console for _local_:
 
 ~~~ shell
-cd backend;python ./main.py
+cd backend
+python ./main.py &
 ~~~
 
 ## Step 7: Expose the backend service
 
-We now have a namespace running a frontend, but
+We now have the frontend running, but
 no backend service is available to it. 
 
 Use `skupper gateway` commands to expose the backend service to the
@@ -211,7 +206,7 @@ Console for _local_:
 ~~~ shell
 skupper gateway init --type podman
 skupper service create hello-world-backend 8080
-skupper gateway bind hello-world-backend 192.168.1.14 8080
+skupper gateway bind hello-world-backend localhost 8080
 ~~~
 
 ## Step 8: Expose the frontend service
@@ -240,11 +235,11 @@ service/hello-world-frontend exposed
 
 $ kubectl get services
 NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                           AGE
-hello-world-backend    ClusterIP      10.102.112.121   <none>           8080/TCP                          30s
-hello-world-frontend   LoadBalancer   10.98.170.106    10.98.170.106    8080:30787/TCP                    2s
-skupper                LoadBalancer   10.101.101.208   10.101.101.208   8080:31494/TCP                    82s
-skupper-router         LoadBalancer   10.110.252.252   10.110.252.252   55671:32111/TCP,45671:31193/TCP   86s
-skupper-router-local   ClusterIP      10.96.123.13     <none>           5671/TCP                          86s
+hello-world-backend    ClusterIP      10.107.66.1      <none>           8080/TCP                          5d23h
+hello-world-frontend   LoadBalancer   10.107.149.157   10.107.149.157   8080:31808/TCP                    5d23h
+skupper                LoadBalancer   10.100.77.228    10.100.77.228    8080:31849/TCP,8081:31319/TCP     5d23h
+skupper-router         LoadBalancer   10.97.50.151     10.97.50.151     55671:31891/TCP,45671:30626/TCP   5d23h
+skupper-router-local   ClusterIP      10.102.242.176   <none>           5671/TCP                          5d23h
 ~~~
 
 ## Step 9: Test the application
