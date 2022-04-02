@@ -1,24 +1,34 @@
 [example_suite_para]
 
-This example is part of a https://skupper.io/examples/index.html[suite of examples] showing the
-different ways you can use https://skupper.io/[Skupper] to connect services
+This example is part of a [suite of examples][examples] showing the
+different ways you can use [Skupper][website] to connect services
 across cloud providers, data centers, and edge sites.
+
+[website]: https://skupper.io/
+[examples]: https://skupper.io/examples/index.html
 
 [prerequisites]
 
 * The `kubectl` command-line tool, version 1.15 or later
-(https://kubernetes.io/docs/tasks/tools/install-kubectl/[installation guide])
-* The `skupper` command-line tool, the latest version (https://skupper.io/install/index.html[installation
-guide])
+  ([installation guide][install-kubectl])
+
+* The `skupper` command-line tool, the latest version ([installation
+  guide][install-skupper])
+
 * Access to at least one Kubernetes cluster, from any provider you
-choose
+  choose
+
+[install-kubectl]: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+[install-skupper]: https://skupper.io/install/index.html
 
 [configure_separate_console_sessions_preamble]
 
 Skupper is designed for use with multiple namespaces, typically on
 different clusters.  The `skupper` command uses your
-https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/[kubeconfig] and current context to select the namespace
+[kubeconfig][kubeconfig] and current context to select the namespace
 where it operates.
+
+[kubeconfig]: https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/
 
 Your kubeconfig is stored in a file in your home directory.  The
 `skupper` and `kubectl` commands use the `KUBECONFIG` environment
@@ -39,13 +49,13 @@ Find the instructions for your chosen providers and use them to
 authenticate and configure access for each console session.  See the
 following links for more information:
 
-* https://skupper.io/start/minikube.html[Minikube]
-* https://skupper.io/start/eks.html[Amazon Elastic Kubernetes Service (EKS)]
-* https://skupper.io/start/aks.html[Azure Kubernetes Service (AKS)]
-* https://skupper.io/start/gke.html[Google Kubernetes Engine (GKE)]
-* https://skupper.io/start/ibmks.html[IBM Kubernetes Service]
-* https://skupper.io/start/openshift.html[OpenShift]
-* https://kubernetes.io/partners/#kcsp[More providers]
+* [Minikube](https://skupper.io/start/minikube.html)
+* [Amazon Elastic Kubernetes Service (EKS)](https://skupper.io/start/eks.html)
+* [Azure Kubernetes Service (AKS)](https://skupper.io/start/aks.html)
+* [Google Kubernetes Engine (GKE)](https://skupper.io/start/gke.html)
+* [IBM Kubernetes Service](https://skupper.io/start/ibmks.html)
+* [OpenShift](https://skupper.io/start/openshift.html)
+* [More providers](https://kubernetes.io/partners/#kcsp)
 
 [set_up_your_namespaces_preamble]
 
@@ -59,8 +69,10 @@ The `skupper init` command installs the Skupper router and service
 controller in the current namespace.  Run the `skupper init` command
 in each namespace.
 
-NOTE: If you are using Minikube, https://skupper.io/start/minikube.html#running-minikube-tunnel[you need to start `minikube
-tunnel`] before you install Skupper.
+**Note:** If you are using Minikube, [you need to start `minikube
+tunnel`][minikube-tunnel] before you install Skupper.
+
+[minikube-tunnel]: https://skupper.io/start/minikube.html#running-minikube-tunnel
 
 [install_skupper_in_your_namespaces_postamble]
 
@@ -73,11 +85,11 @@ installed.
 
 You should see output like this for each namespace:
 
-----
+~~~
 Skupper is enabled for namespace "<namespace>" in interior mode. It is not connected to any other sites. It has no exposed services.
 The site console url is: http://<address>:8080
 The credentials for internal console-auth mode are held in secret: 'skupper-console-users'
-----
+~~~
 
 As you move through the steps below, you can use `skupper status` at
 any time to check your progress.
@@ -93,7 +105,7 @@ link details.  Then, in a remote namespace, The `skupper link create`
 command uses the token to create a link to the namespace that
 generated it.
 
-NOTE: The link token is truly a _secret_.  Anyone who has the
+**Note:** The link token is truly a *secret*.  Anyone who has the
 token can link to your namespace.  Make sure that only those you trust
 have access to it.
 
@@ -112,4 +124,4 @@ following commands.
 
 [next_steps]
 
-Check out the other https://skupper.io/examples/index.html[examples] on the Skupper website.
+Check out the other [examples][examples] on the Skupper website.

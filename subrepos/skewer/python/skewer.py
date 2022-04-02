@@ -250,35 +250,37 @@ def generate_readme(skewer_file, output_file):
 
     out.append(_strings["example_suite_para"])
     out.append("")
-    out.append("#### Contents")
-    out.append("")
+    
+    
+    # out.append("#### Contents")
+    # out.append("")
 
-    if "overview" in skewer_data:
-        out.append("* [Overview](#overview)")
+    # if "overview" in skewer_data:
+    #     out.append("* [Overview](#overview)")
 
-    if "prerequisites" in skewer_data:
-        out.append("* [Prerequisites](#prerequisites)")
+    # if "prerequisites" in skewer_data:
+    #     out.append("* [Prerequisites](#prerequisites)")
 
     _apply_standard_steps(skewer_data)
 
-    for i, step_data in enumerate(skewer_data["steps"], 1):
-        title = f"Step {i}: {step_data['title']}"
+    # for i, step_data in enumerate(skewer_data["steps"], 1):
+    #     title = f"Step {i}: {step_data['title']}"
 
-        fragment = replace(title, " ", "_")
-        fragment = replace(fragment, r"[\W]", "")
-        fragment = replace(fragment, "_", "-")
-        fragment = fragment.lower()
+    #     fragment = replace(title, " ", "_")
+    #     fragment = replace(fragment, r"[\W]", "")
+    #     fragment = replace(fragment, "_", "-")
+    #     fragment = fragment.lower()
 
-        out.append(f"* [{title}](#{fragment})")
+    #     out.append(f"* [{title}](#{fragment})")
 
-    if "summary" in skewer_data:
-        out.append("* [Summary](#summary)")
+    # if "summary" in skewer_data:
+    #     out.append("* [Summary](#summary)")
 
-    if "cleaning_up" in skewer_data:
-        out.append("* [Cleaning up](#cleaning-up)")
+    # if "cleaning_up" in skewer_data:
+    #     out.append("* [Cleaning up](#cleaning-up)")
 
-    if "next_steps" in skewer_data:
-        out.append("* [Next steps](#next-steps)")
+    # if "next_steps" in skewer_data:
+    #     out.append("* [Next steps](#next-steps)")
 
     out.append("")
 
@@ -343,7 +345,7 @@ def _generate_readme_step(skewer_data, step_data):
                 out.append("Console:")
                 out.append("")
 
-            out.append("~~~ shell")
+            out.append("----")
 
             for command in commands:
                 out.append(command["run"])
@@ -351,20 +353,20 @@ def _generate_readme_step(skewer_data, step_data):
                 if "output" in command:
                     outputs.append((command["run"], command["output"]))
 
-            out.append("~~~")
+            out.append("----")
             out.append("")
 
             if outputs:
                 out.append("Sample output:")
                 out.append("")
-                out.append("~~~")
+                out.append("----")
 
                 if len(outputs) > 1:
                     out.append("\n\n".join((f"$ {run}\n{output.strip()}" for run, output in outputs)))
                 else:
                     out.append(outputs[0][1].strip())
 
-                out.append("~~~")
+                out.append("----")
                 out.append("")
 
     if "postamble" in step_data:
