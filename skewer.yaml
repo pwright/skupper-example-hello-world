@@ -24,7 +24,7 @@ sites:
   west:
     kubeconfig: ~/.kube/config-west
     namespace: west
-  east:
+  local:
     kubeconfig: ~/.kube/config-local
     namespace: local
 steps:
@@ -41,14 +41,13 @@ steps:
   - title: Deploy the frontend and backend services
     preamble: |
       Use `kubectl create deployment` to deploy the frontend service
-      in `west` and the backend service in `east`.
+      in `west` and the backend service in `local`.
     commands:
       west:
         - run: kubectl create deployment hello-world-frontend --image quay.io/skupper/hello-world-frontend
           await: [deployment/hello-world-frontend]
-      east:
-        - run: cd backend
-        - run: python ./main.py &
+      local:
+        - run: python ./backend/main.py &
   - title: Expose the backend service
     preamble: |
       We now have the frontend running, but
@@ -57,14 +56,14 @@ steps:
       Use `skupper gateway` commands to expose the backend service to the
       frontend service.
     commands:
-      east:
-        - run:  skupper gateway init --type podman
+      west:
         - run: skupper service create hello-world-backend 8080
-        - run: skupper gateway bind hello-world-backend localhost 8080
+        - run: skupper gateway init --type podman
+        - run: skupper gateway bind hello-world-backend localhost 8081
   - title: Expose the frontend service
     preamble: |
       We have established connectivity between the two namespaces and
-      made the backend in `east` available to the frontend in `west`.
+      made the backend in `local` available to the frontend in `west`.
       Before we can test the application, we need external access to
       the frontend.
 
@@ -109,7 +108,7 @@ summary: |
   Any service exposed on the application network is represented as a
   local service in all of the linked namespaces.
 
-  The backend service is located in `east`, but the frontend service
+  The backend service is located in `local`, but the frontend service
   in `west` can "see" it as if it were local.  When the frontend
   sends a request to the backend, Skupper forwards the request to the
   namespace where the backend is running and routes the response back to
@@ -120,10 +119,10 @@ cleaning_up:
   preamble: !string cleaning_up_preamble
   commands:
     west:
+      - run: skupper gateway delete
       - run: skupper delete
       - run: kubectl delete service/hello-world-frontend
       - run: kubectl delete deployment/hello-world-frontend
-    east:
-      - run: skupper delete
-      - run: kubectl delete deployment/hello-world-backend
+    local:
+      - run: ps -ef | grep main.py | grep -v grep | awk '{print $2}' | xargs kill
 next_steps: !string next_steps

@@ -25,7 +25,7 @@ from threading import Lock
 app = Flask(__name__)
 
 host = os.environ.get("BACKEND_SERVICE_HOST", "0.0.0.0")
-port = int(os.environ.get("BACKEND_SERVICE_PORT", 8080))
+port = int(os.environ.get("BACKEND_SERVICE_PORT", 8081))
 
 pod = os.environ.get("HOSTNAME", "hello-world-backend")
 
