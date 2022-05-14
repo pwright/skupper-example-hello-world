@@ -78,7 +78,7 @@ steps:
       frontend service.
     commands:
       east:
-        - run: skupper expose deployment/hello-world-backend --port 8080
+        - run: skupper expose deployment/hello-world-backend --port 8080 --protocol http2 --enable-tls
           sleep: 30
           output: |
             NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
