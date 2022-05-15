@@ -13,21 +13,24 @@ across cloud providers, data centers, and edge sites.
 
 #### Contents
 
-* [Overview](#overview)
-* [Prerequisites](#prerequisites)
-* [Step 1: Configure separate console sessions](#step-1-configure-separate-console-sessions)
-* [Step 2: Access your clusters](#step-2-access-your-clusters)
-* [Step 3: Set up your namespaces](#step-3-set-up-your-namespaces)
-* [Step 4: Install Skupper in your namespaces](#step-4-install-skupper-in-your-namespaces)
-* [Step 5: Check the status of your namespaces](#step-5-check-the-status-of-your-namespaces)
-* [Step 6: Link your namespaces](#step-6-link-your-namespaces)
-* [Step 7: Deploy the frontend and backend services](#step-7-deploy-the-frontend-and-backend-services)
-* [Step 8: Expose the backend service](#step-8-expose-the-backend-service)
-* [Step 9: Expose the frontend service](#step-9-expose-the-frontend-service)
-* [Step 10: Test the application](#step-10-test-the-application)
-* [Summary](#summary)
-* [Cleaning up](#cleaning-up)
-* [Next steps](#next-steps)
+- [Skupper Hello World](#skupper-hello-world)
+      - [A minimal HTTP application deployed across Kubernetes clusters using Skupper](#a-minimal-http-application-deployed-across-kubernetes-clusters-using-skupper)
+      - [Contents](#contents)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Step 1: Configure separate console sessions](#step-1-configure-separate-console-sessions)
+  - [Step 2: Access your clusters](#step-2-access-your-clusters)
+  - [Step 3: Set up your namespaces](#step-3-set-up-your-namespaces)
+  - [Step 4: Install Skupper in your namespaces](#step-4-install-skupper-in-your-namespaces)
+  - [Step 5: Check the status of your namespaces](#step-5-check-the-status-of-your-namespaces)
+  - [Step 6: Link your namespaces](#step-6-link-your-namespaces)
+  - [Step 7: Deploy the frontend and backend services](#step-7-deploy-the-frontend-and-backend-services)
+  - [Step 8: Expose the backend service](#step-8-expose-the-backend-service)
+  - [Step 9: Expose the frontend service](#step-9-expose-the-frontend-service)
+  - [Step 10: Test the application](#step-10-test-the-application)
+  - [Summary](#summary)
+  - [Cleaning up](#cleaning-up)
+  - [Next steps](#next-steps)
 
 ## Overview
 
@@ -120,14 +123,13 @@ set the current namespace for each session.
 Console for _west_:
 
 ~~~ shell
-kubectl create namespace west
+
 kubectl config set-context --current --namespace west
 ~~~
 
 Console for _east_:
 
 ~~~ shell
-kubectl create namespace east
 kubectl config set-context --current --namespace east
 ~~~
 
