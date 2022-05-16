@@ -1,6 +1,8 @@
 ## Commands
 
 
+kubectl config set-context --current --namespace east
+
 kubectl apply -f ngnixhttp2tls_nocerts.yaml
 
 skupper expose deployment nghttp2tls --port 443 --protocol http2 --enable-tls
