@@ -1,4 +1,4 @@
-# Skupper Hello World
+# Skupper Declarative Hello World
 
 [![main](https://github.com/skupperproject/skupper-example-hello-world/actions/workflows/main.yaml/badge.svg)](https://github.com/skupperproject/skupper-example-hello-world/actions/workflows/main.yaml)
 
@@ -34,7 +34,8 @@ across cloud providers, data centers, and edge sites.
 ## Overview
 
 This example is a very simple multi-service HTTP application that can
-be deployed across multiple Kubernetes clusters using Skupper.
+be deployed across multiple Kubernetes clusters using Skupper 
+with a declarative approach.
 
 It contains two services:
 
@@ -157,41 +158,20 @@ Context "minikube" modified.
 
 ## Step 4: Install Skupper in your namespaces
 
-The `skupper init` command installs the Skupper router and service
-controller in the current namespace.  Run the `skupper init` command
-in each namespace.
-
-**Note:** If you are using Minikube, [you need to start `minikube
-tunnel`][minikube-tunnel] before you install Skupper.
-
-[minikube-tunnel]: https://skupper.io/start/minikube.html#running-minikube-tunnel
-
-_**Console for west:**_
-
-~~~ shell
-skupper init
-~~~
-
-_Sample output:_
-
-~~~ console
-$ skupper init
-Waiting for LoadBalancer IP or hostname...
-Skupper is now installed in namespace 'west'.  Use 'skupper status' to get more information.
-~~~
+Deploy a site controller and create a site.
 
 _**Console for east:**_
 
 ~~~ shell
-skupper init
+kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.0/cmd/site-controller/deploy-watch-current-ns.yaml
+kubectl apply -f ./backend/east-site.yml
 ~~~
 
-_Sample output:_
+_**Console for west:**_
 
-~~~ console
-$ skupper init
-Waiting for LoadBalancer IP or hostname...
-Skupper is now installed in namespace 'east'.  Use 'skupper status' to get more information.
+~~~ shell
+kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.0/cmd/site-controller/deploy-watch-current-ns.yaml
+kubectl apply -f ./frontend/west-site.yml
 ~~~
 
 ## Step 5: Check the status of your namespaces
@@ -234,54 +214,20 @@ any time to check your progress.
 
 ## Step 6: Link your namespaces
 
-Creating a link requires use of two `skupper` commands in
-conjunction, `skupper token create` and `skupper link create`.
-
-The `skupper token create` command generates a secret token that
-signifies permission to create a link.  The token also carries the
-link details.  Then, in a remote namespace, The `skupper link
-create` command uses the token to create a link to the namespace
-that generated it.
-
-**Note:** The link token is truly a *secret*.  Anyone who has the
-token can link to your namespace.  Make sure that only those you
-trust have access to it.
-
-First, use `skupper token create` in one namespace to generate the
-token.  Then, use `skupper link create` in the other to create a
-link.
+Apply yaml to create a token from west and use that token in east.
 
 _**Console for west:**_
 
 ~~~ shell
-skupper token create ~/secret.token
-~~~
-
-_Sample output:_
-
-~~~ console
-$ skupper token create ~/secret.token
-Token written to ~/secret.token
+kubectl apply -f ./frontend/token-request.yml
+kubectl get secret -o yaml west-secret | yq 'del(.metadata.namespace)' > ~/west-secret.yaml
 ~~~
 
 _**Console for east:**_
 
 ~~~ shell
-skupper link create ~/secret.token
+kubectl apply -f ~/west-secret.yaml
 ~~~
-
-_Sample output:_
-
-~~~ console
-$ skupper link create ~/secret.token
-Site configured to link to https://10.105.193.154:8081/ed9c37f6-d78a-11ec-a8c7-04421a4c5042 (name=link1)
-Check the status of the link using 'skupper link status'.
-~~~
-
-If your console sessions are on different machines, you may need
-to use `sftp` or a similar tool to transfer the token securely.
-By default, tokens expire after a single use or 15 minutes after
-creation.
 
 ## Step 7: Deploy the frontend and backend services
 
@@ -327,14 +273,8 @@ frontend service.
 _**Console for east:**_
 
 ~~~ shell
-skupper expose deployment/backend --port 8080
-~~~
-
-_Sample output:_
-
-~~~ console
-$ skupper expose deployment/backend --port 8080
-deployment backend exposed as backend
+kubectl annotate deployment/backend skupper.io/proxy="http"
+kubectl annotate deployment/backend skupper.io/port="8080"
 ~~~
 
 ## Step 9: Expose the frontend service
@@ -351,6 +291,7 @@ _**Console for west:**_
 
 ~~~ shell
 kubectl expose deployment/frontend --port 8080 --type LoadBalancer
+read  -n 1 -p "Press return to continue:" dummyinput
 ~~~
 
 _Sample output:_
