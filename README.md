@@ -275,7 +275,6 @@ frontend service.
 _**Console for east:**_
 
 ~~~ shell
-read  -n 1 -p "Press return to continue:" dummyinput
 kubectl annotate deployment/backend skupper.io/proxy="http"
 kubectl annotate deployment/backend skupper.io/port="8080"
 ~~~
