@@ -163,14 +163,14 @@ Deploy a site controller and create a site.
 _**Console for east:**_
 
 ~~~ shell
-kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.0/cmd/site-controller/deploy-watch-current-ns.yaml
+kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-current-ns.yaml
 kubectl apply -f ./backend/east-site.yml
 ~~~
 
 _**Console for west:**_
 
 ~~~ shell
-kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/1.0/cmd/site-controller/deploy-watch-current-ns.yaml
+kubectl apply -f https://raw.githubusercontent.com/skupperproject/skupper/master/cmd/site-controller/deploy-watch-current-ns.yaml
 kubectl apply -f ./frontend/west-site.yml
 ~~~
 
@@ -220,13 +220,15 @@ _**Console for west:**_
 
 ~~~ shell
 kubectl apply -f ./frontend/token-request.yml
-kubectl get secret -o yaml west-secret | yq 'del(.metadata.namespace)' > ~/west-secret.yaml
+sleep 1s
+kubectl get secret -o yaml west-link | yq 'del(.metadata.namespace)' > ~/west-link.yaml
 ~~~
 
 _**Console for east:**_
 
 ~~~ shell
-kubectl apply -f ~/west-secret.yaml
+kubectl apply -f ~/west-link.yaml
+skupper link status --wait 60
 ~~~
 
 ## Step 7: Deploy the frontend and backend services
@@ -263,16 +265,17 @@ deployment.apps/backend created
 ## Step 8: Expose the backend service
 
 We now have two namespaces linked to form a Skupper network, but
-no services are exposed on it.  Skupper uses the `skupper
-expose` command to select a service from one namespace for
+no services are exposed on it.  Skupper uses `skupper.io` 
+annotations to select a service from one namespace for
 exposure on all the linked namespaces.
 
-Use `skupper expose` to expose the backend service to the
+Use annotations to expose the backend service to the
 frontend service.
 
 _**Console for east:**_
 
 ~~~ shell
+read  -n 1 -p "Press return to continue:" dummyinput
 kubectl annotate deployment/backend skupper.io/proxy="http"
 kubectl annotate deployment/backend skupper.io/port="8080"
 ~~~
@@ -291,7 +294,6 @@ _**Console for west:**_
 
 ~~~ shell
 kubectl expose deployment/frontend --port 8080 --type LoadBalancer
-read  -n 1 -p "Press return to continue:" dummyinput
 ~~~
 
 _Sample output:_

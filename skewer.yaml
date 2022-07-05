@@ -56,7 +56,8 @@ steps:
   - title: Deploy the frontend and backend services
     preamble: |
       Use `kubectl create deployment` to deploy the frontend service
-      in `west` and the backend service in  
+      in `west` and the backend service in `east`. 
+    commands:
       west:
         - run: kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
           output: deployment.apps/frontend created
@@ -76,6 +77,7 @@ steps:
       east:
         - run: kubectl annotate deployment/backend skupper.io/proxy="http"
         - run: kubectl annotate deployment/backend skupper.io/port="8080"
+
   - title: Expose the frontend service
     preamble: |
       We have established connectivity between the two namespaces and
@@ -90,7 +92,6 @@ steps:
         - await: deployment/frontend
         - run: kubectl expose deployment/frontend --port 8080 --type LoadBalancer
           output: service/frontend exposed
-        - run: read  -n 1 -p "Press return to continue:" dummyinput
   - standard: test_the_application
   - standard: accessing_the_web_console
   - standard: cleaning_up
