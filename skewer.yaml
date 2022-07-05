@@ -48,12 +48,11 @@ steps:
     commands:
       west:
         - run: kubectl apply -f ./frontend/token-request.yml
-        
-        - run: kubectl get secret -o yaml west-secret | yq 'del(.metadata.namespace)' > ~/west-secret.yaml
+        - run: sleep 1s
+        - run: kubectl get secret -o yaml west-link | yq 'del(.metadata.namespace)' > ~/west-link.yaml
       east:
-        - run: kubectl apply -f ~/west-secret.yaml
+        - run: kubectl apply -f ~/west-link.yaml
         - run: skupper link status --wait 60
-          apply: test
   - title: Deploy the frontend and backend services
     preamble: |
       Use `kubectl create deployment` to deploy the frontend service
@@ -75,8 +74,6 @@ steps:
       frontend service.
     commands:
       east:
-        - run: read  -n 1 -p "Press return to continue:" dummyinput
-
         - run: kubectl annotate deployment/backend skupper.io/proxy="http"
         - run: kubectl annotate deployment/backend skupper.io/port="8080"
   - title: Expose the frontend service
@@ -93,7 +90,7 @@ steps:
         - await: deployment/frontend
         - run: kubectl expose deployment/frontend --port 8080 --type LoadBalancer
           output: service/frontend exposed
-
+        - run: read  -n 1 -p "Press return to continue:" dummyinput
   - standard: test_the_application
   - standard: accessing_the_web_console
   - standard: cleaning_up

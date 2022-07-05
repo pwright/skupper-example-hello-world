@@ -3,4 +3,4 @@ kind: Secret
 metadata:
   labels:
     skupper.io/type: connection-token-request
-  name: west-secret
+  name: west-link

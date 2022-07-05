@@ -3,8 +3,8 @@ data:
   cluster-local: "false"
   console: "true"
   console-authentication: internal
-  console-password: "rubble"
-  console-user: "barney"
+  console-user: "admin"
+  console-password: "password"
   edge: "false"
   name: west-site
   router-console: "true"
