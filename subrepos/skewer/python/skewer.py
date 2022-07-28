@@ -151,7 +151,7 @@ test_the_application:
     placeholder.  The actual value is an IP address.
   commands:
     "0":
-      - run: kubectl get service/frontend
+      - run: read  -n 1 -p "Input Selection:" mainmenuinput
         apply: readme
         output: |
           NAME       TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
@@ -186,12 +186,6 @@ accessing_the_web_console:
           Skupper is enabled for namespace "@namespace@" in interior mode. It is connected to 1 other site. It has 1 exposed service.
           The site console url is: <console-url>
           The credentials for internal console-auth mode are held in secret: 'skupper-console-users'
-      - run: kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d
-        apply: readme
-        output: <password>
-      - await_external_ip: service/skupper
-      - run: curl --fail --insecure --verbose --retry 60 --retry-connrefused --retry-delay 2 $(kubectl get service/skupper -o jsonpath='https://{.status.loadBalancer.ingress[0].ip}:8080/') --user admin:$(kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d); echo
-        apply: test
   postamble: |
     Navigate to `<console-url>` in your browser.  When prompted, log
     in as user `admin` and enter the password.
