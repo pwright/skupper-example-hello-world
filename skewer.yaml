@@ -74,6 +74,7 @@ steps:
         - await: deployment/frontend
         - run: kubectl expose deployment/frontend --port 8080 --type LoadBalancer
           output: service/frontend exposed
+        - run: read -n 1 -p "Press return to continue" dummyinput
   - standard: test_the_application
   - standard: accessing_the_web_console
   - standard: cleaning_up

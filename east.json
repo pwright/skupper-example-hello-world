@@ -1,0 +1,236 @@
+[
+    {
+        "name": "GatewayQueryRequest",
+        "total": 421,
+        "counts": [
+            {
+                "message": "gateway request",
+                "count": 421,
+                "last_occurrence": "2022-08-26T10:16:05.096828692Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T10:16:05.096828692Z"
+    },
+    {
+        "name": "SiteQueryRequest",
+        "total": 421,
+        "counts": [
+            {
+                "message": "site data request",
+                "count": 421,
+                "last_occurrence": "2022-08-26T10:16:05.085555409Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T10:16:05.085555409Z"
+    },
+    {
+        "name": "BridgeTargetEvent",
+        "total": 12,
+        "counts": [
+            {
+                "message": "Adding pod for backend: backend-5c5f979548-pjt55",
+                "count": 4,
+                "last_occurrence": "2022-08-26T08:44:42.090021484Z"
+            },
+            {
+                "message": "Adding pod for backend: backend-5c5f979548-ndj2k",
+                "count": 4,
+                "last_occurrence": "2022-08-26T08:44:42.090007646Z"
+            },
+            {
+                "message": "Adding pod for backend: backend-5c5f979548-2ppb4",
+                "count": 4,
+                "last_occurrence": "2022-08-26T08:44:42.090006407Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:44:42.090021484Z"
+    },
+    {
+        "name": "TokenHandler",
+        "total": 1,
+        "counts": [
+            {
+                "message": "Connecting using token link1",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:44:41.487892337Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:44:41.487892337Z"
+    },
+    {
+        "name": "ClaimHandler",
+        "total": 1587,
+        "counts": [
+            {
+                "message": "Error handling \"east/link2\": Error processing claim \"link2\": Post \"https://localhost:32121/947bdaed-2519-11ed-849f-482ae336eb38?site-version=undefined\": dial tcp 127.0.0.1:32121: connect: connection refused",
+                "count": 162,
+                "last_occurrence": "2022-08-26T08:35:01.442534118Z"
+            },
+            {
+                "message": "Failed to update status for claim \"link2\": Operation cannot be fulfilled on secrets \"link2\": StorageError: invalid object, Code: 4, Key: /registry/secrets/east/link2, ResourceVersion: 0, AdditionalErrorMsg: Precondition failed: UID in precondition: 3017abfa-9574-45c8-b929-e8ed14b9a262, UID in object meta: ",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:35:01.442522404Z"
+            },
+            {
+                "message": "Error handling \"east/link1\": Error processing claim \"link1\": Post \"https://localhost:32121/61ba844d-2518-11ed-a221-482ae336eb38?site-version=undefined\": dial tcp 127.0.0.1:32121: connect: connection refused",
+                "count": 1424,
+                "last_occurrence": "2022-08-26T08:34:57.842857132Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:35:01.442534118Z"
+    },
+    {
+        "name": "HttpAuthenticationFailure",
+        "total": 3,
+        "counts": [
+            {
+                "message": "Failed to authenticate : read /etc/console-users: is a directory",
+                "count": 3,
+                "last_occurrence": "2022-08-26T08:32:38.390839132Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:32:38.390839132Z"
+    },
+    {
+        "name": "ServiceControllerEvent",
+        "total": 9,
+        "counts": [
+            {
+                "message": "service event for east/backend",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:59.455649384Z"
+            },
+            {
+                "message": "Checking service for: backend",
+                "count": 2,
+                "last_occurrence": "2022-08-26T08:24:59.044207364Z"
+            },
+            {
+                "message": "Got targetpods event backend",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:59.043743756Z"
+            },
+            {
+                "message": "Service definitions have changed",
+                "count": 2,
+                "last_occurrence": "2022-08-26T08:24:58.025470078Z"
+            },
+            {
+                "message": "service event for east/skupper-router-local",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:35.589597423Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:24:59.455649384Z"
+    },
+    {
+        "name": "ServiceControllerError",
+        "total": 1,
+        "counts": [
+            {
+                "message": "Error updating services: services \"backend\" already exists",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:59.455456293Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:24:59.455456293Z"
+    },
+    {
+        "name": "DefinitionMonitorEvent",
+        "total": 15,
+        "counts": [
+            {
+                "message": "service event for east/backend",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:59.044586409Z"
+            },
+            {
+                "message": "Service definitions have changed",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:58.025454648Z"
+            },
+            {
+                "message": "deployment event for east/backend",
+                "count": 7,
+                "last_occurrence": "2022-08-26T08:24:56.98668486Z"
+            },
+            {
+                "message": "deployment event for east/skupper-service-controller",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:35.689306441Z"
+            },
+            {
+                "message": "deployment event for east/skupper-router",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:35.689302444Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:24:59.044586409Z"
+    },
+    {
+        "name": "ServiceControllerUpdateEvent",
+        "total": 1,
+        "counts": [
+            {
+                "message": "Updating skupper-internal",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:58.331055481Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:24:58.331055481Z"
+    },
+    {
+        "name": "ServiceSyncEvent",
+        "total": 3,
+        "counts": [
+            {
+                "message": "Service interface(s) added backend",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:58.02560981Z"
+            },
+            {
+                "message": "Service sync sender connection to amqps://skupper-router-local.east.svc.cluster.local:5671 established",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:35.604949637Z"
+            },
+            {
+                "message": "Service sync receiver connection to amqps://skupper-router-local.east.svc.cluster.local:5671 established",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:35.604260163Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:24:58.02560981Z"
+    },
+    {
+        "name": "IpMappingEvent",
+        "total": 14,
+        "counts": [
+            {
+                "message": "10.1.0.42 mapped to backend-5c5f979548-ndj2k",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:56.962501006Z"
+            },
+            {
+                "message": "10.1.0.41 mapped to backend-5c5f979548-2ppb4",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:55.937358002Z"
+            },
+            {
+                "message": "10.1.0.40 mapped to backend-5c5f979548-pjt55",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:53.92488223Z"
+            },
+            {
+                "message": " mapped to backend-5c5f979548-pjt55",
+                "count": 3,
+                "last_occurrence": "2022-08-26T08:24:49.702085962Z"
+            },
+            {
+                "message": " mapped to backend-5c5f979548-2ppb4",
+                "count": 3,
+                "last_occurrence": "2022-08-26T08:24:49.67810026Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:24:56.962501006Z"
+    }
+]

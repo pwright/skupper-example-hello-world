@@ -107,7 +107,7 @@ install_skupper_in_your_namespaces:
     [minikube-tunnel]: https://skupper.io/start/minikube.html#running-minikube-tunnel
   commands:
     "*":
-      - run: skupper init
+      - run: skupper init --ingress nodeport --ingress-host localhost
         output: |
           Waiting for LoadBalancer IP or hostname...
           Skupper is now installed in namespace '@namespace@'.  Use 'skupper status' to get more information.

@@ -1,0 +1,143 @@
+[
+    {
+        "name": "GatewayQueryRequest",
+        "total": 902,
+        "counts": [
+            {
+                "message": "gateway request",
+                "count": 902,
+                "last_occurrence": "2022-08-26T10:16:05.101765614Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T10:16:05.101765614Z"
+    },
+    {
+        "name": "SiteQueryRequest",
+        "total": 902,
+        "counts": [
+            {
+                "message": "site data request",
+                "count": 902,
+                "last_occurrence": "2022-08-26T10:16:05.083618339Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T10:16:05.083618339Z"
+    },
+    {
+        "name": "TokenClaimVerification",
+        "total": 2,
+        "counts": [
+            {
+                "message": "Bad method GET",
+                "count": 2,
+                "last_occurrence": "2022-08-26T08:31:48.882562587Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:31:48.882562587Z"
+    },
+    {
+        "name": "HttpAuthenticationFailure",
+        "total": 2,
+        "counts": [
+            {
+                "message": "Failed to authenticate : read /etc/console-users: is a directory",
+                "count": 2,
+                "last_occurrence": "2022-08-26T08:27:56.492825815Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:27:56.492825815Z"
+    },
+    {
+        "name": "ServiceControllerEvent",
+        "total": 3,
+        "counts": [
+            {
+                "message": "service event for west/frontend",
+                "count": 2,
+                "last_occurrence": "2022-08-26T08:24:59.308487289Z"
+            },
+            {
+                "message": "Service definitions have changed",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:31.350929673Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:24:59.308487289Z"
+    },
+    {
+        "name": "DefinitionMonitorEvent",
+        "total": 13,
+        "counts": [
+            {
+                "message": "service event for west/frontend",
+                "count": 2,
+                "last_occurrence": "2022-08-26T08:24:59.308478252Z"
+            },
+            {
+                "message": "deployment event for west/frontend",
+                "count": 5,
+                "last_occurrence": "2022-08-26T08:24:52.904380172Z"
+            },
+            {
+                "message": "deployment event for west/skupper-service-controller",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:31.451853935Z"
+            },
+            {
+                "message": "deployment event for west/skupper-router",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:31.451851741Z"
+            },
+            {
+                "message": "Service definitions have changed",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:31.451845299Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:24:59.308478252Z"
+    },
+    {
+        "name": "IpMappingEvent",
+        "total": 6,
+        "counts": [
+            {
+                "message": "10.1.0.39 mapped to frontend-bf54d574-fnnkh",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:24:52.891605144Z"
+            },
+            {
+                "message": " mapped to frontend-bf54d574-fnnkh",
+                "count": 3,
+                "last_occurrence": "2022-08-26T08:24:49.543925962Z"
+            },
+            {
+                "message": "10.1.0.36 mapped to skupper-service-controller-5cf674874b-ks9l9",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:31.553373985Z"
+            },
+            {
+                "message": "10.1.0.35 mapped to skupper-router-8666ff66d8-r6ftr",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:31.553368411Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:24:52.891605144Z"
+    },
+    {
+        "name": "ServiceSyncEvent",
+        "total": 2,
+        "counts": [
+            {
+                "message": "Service sync receiver connection to amqps://skupper-router-local.west.svc.cluster.local:5671 established",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:31.369162491Z"
+            },
+            {
+                "message": "Service sync sender connection to amqps://skupper-router-local.west.svc.cluster.local:5671 established",
+                "count": 1,
+                "last_occurrence": "2022-08-26T08:23:31.365681501Z"
+            }
+        ],
+        "last_occurrence": "2022-08-26T08:23:31.369162491Z"
+    }
+]
