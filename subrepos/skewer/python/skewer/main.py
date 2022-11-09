@@ -276,8 +276,8 @@ def generate_readme(skewer_file, output_file):
 
     out.append(_example_suite_para)
     out.append("")
-    out.append("#### Contents")
-    out.append("")
+    """ out.append("#### Contents")
+    out.append("") """
 
     if "overview" in skewer_data:
         out.append("* [Overview](#overview)")
@@ -297,7 +297,7 @@ def generate_readme(skewer_file, output_file):
         fragment = replace(fragment, "_", "-")
         fragment = fragment.lower()
 
-        out.append(f"* [{title}](#{fragment})")
+        # out.append(f"* [{title}](#{fragment})")
 
     if "summary" in skewer_data:
         out.append("* [Summary](#summary)")
@@ -376,23 +376,23 @@ def _generate_readme_step(skewer_data, step_data):
             namespace = skewer_data["sites"][site_name]["namespace"]
             outputs = list()
 
-            out.append(f"_**Console for {namespace}:**_")
+            out.append(f'=== "{namespace}"')
             out.append("")
-            out.append("~~~ shell")
+            out.append("    ~~~ shell")
 
             for command in commands:
                 if command.get("apply") == "test":
                     continue
 
                 if "run" in command:
-                    out.append(command["run"])
+                    out.append('    ' + command["run"])
 
                 if "output" in command:
                     assert "run" in command, command
 
-                    outputs.append((command["run"], command["output"]))
+                    #outputs.append((command["run"], command["output"]))
 
-            out.append("~~~")
+            out.append("    ~~~")
             out.append("")
 
             if outputs:

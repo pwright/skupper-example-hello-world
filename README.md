@@ -11,23 +11,8 @@ across cloud providers, data centers, and edge sites.
 [website]: https://skupper.io/
 [examples]: https://skupper.io/examples/index.html
 
-#### Contents
-
 * [Overview](#overview)
 * [Prerequisites](#prerequisites)
-* [Step 1: Install the Skupper command-line tool](#step-1-install-the-skupper-command-line-tool)
-* [Step 2: Configure separate console sessions](#step-2-configure-separate-console-sessions)
-* [Step 3: Access your clusters](#step-3-access-your-clusters)
-* [Step 4: Set up your namespaces](#step-4-set-up-your-namespaces)
-* [Step 5: Install Skupper in your namespaces](#step-5-install-skupper-in-your-namespaces)
-* [Step 6: Check the status of your namespaces](#step-6-check-the-status-of-your-namespaces)
-* [Step 7: Link your namespaces](#step-7-link-your-namespaces)
-* [Step 8: Deploy the frontend and backend services](#step-8-deploy-the-frontend-and-backend-services)
-* [Step 9: Expose the backend service](#step-9-expose-the-backend-service)
-* [Step 10: Expose the frontend service](#step-10-expose-the-frontend-service)
-* [Step 11: Test the application](#step-11-test-the-application)
-* [Accessing the web console](#accessing-the-web-console)
-* [Cleaning up](#cleaning-up)
 * [Summary](#summary)
 * [About this example](#about-this-example)
 
@@ -105,17 +90,17 @@ Start a console session for each of your namespaces.  Set the
 `KUBECONFIG` environment variable to a different path in each
 session.
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-export KUBECONFIG=~/.kube/config-west
-~~~
+    ~~~ shell
+    export KUBECONFIG=~/.kube/config-west
+    ~~~
 
-_**Console for east:**_
+=== "east"
 
-~~~ shell
-export KUBECONFIG=~/.kube/config-east
-~~~
+    ~~~ shell
+    export KUBECONFIG=~/.kube/config-east
+    ~~~
 
 ## Step 3: Access your clusters
 
@@ -132,21 +117,39 @@ Use `kubectl create namespace` to create the namespaces you wish
 to use (or use existing namespaces).  Use `kubectl config
 set-context` to set the current namespace for each session.
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-kubectl create namespace west
-kubectl config set-context --current --namespace west
-~~~
+    ~~~ shell
+    kubectl create namespace west
+    kubectl config set-context --current --namespace west
+    ~~~
 
-_**Console for east:**_
+=== "east"
 
-~~~ shell
-kubectl create namespace east
-kubectl config set-context --current --namespace east
-~~~
+    ~~~ shell
+    kubectl create namespace east
+    kubectl config set-context --current --namespace east
+    ~~~
 
-## Step 5: Install Skupper in your namespaces
+## Step 5: Set up environment for new console
+
+Set up unique images for console
+
+=== "west"
+
+    ~~~ shell
+    export SKUPPER_SERVICE_CONTROLLER_IMAGE=quay.io/ajssmith/service-controller:latest
+    export SKUPPER_VFLOW_COLLECTOR_IMAGE=quay.io/skupper/vflow-collector:latest
+    ~~~
+
+=== "east"
+
+    ~~~ shell
+    export SKUPPER_SERVICE_CONTROLLER_IMAGE=quay.io/ajssmith/service-controller:latest
+    export SKUPPER_VFLOW_COLLECTOR_IMAGE=quay.io/skupper/vflow-collector:latest
+    ~~~
+
+## Step 6: Install Skupper in your namespaces
 
 The `skupper init` command installs the Skupper router and service
 controller in the current namespace.  Run the `skupper init` command
@@ -157,17 +160,17 @@ tunnel`][minikube-tunnel] before you install Skupper.
 
 [minikube-tunnel]: https://skupper.io/start/minikube.html#running-minikube-tunnel
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-skupper init
-~~~
+    ~~~ shell
+    skupper init
+    ~~~
 
-_**Console for east:**_
+=== "east"
 
-~~~ shell
-skupper init
-~~~
+    ~~~ shell
+    skupper init
+    ~~~
 
 _Sample output:_
 
@@ -177,22 +180,22 @@ Waiting for LoadBalancer IP or hostname...
 Skupper is now installed in namespace '<namespace>'.  Use 'skupper status' to get more information.
 ~~~
 
-## Step 6: Check the status of your namespaces
+## Step 7: Check the status of your namespaces
 
 Use `skupper status` in each console to check that Skupper is
 installed.
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-skupper status
-~~~
+    ~~~ shell
+    skupper status
+    ~~~
 
-_**Console for east:**_
+=== "east"
 
-~~~ shell
-skupper status
-~~~
+    ~~~ shell
+    skupper status
+    ~~~
 
 _Sample output:_
 
@@ -205,7 +208,7 @@ The credentials for internal console-auth mode are held in secret: 'skupper-cons
 As you move through the steps below, you can use `skupper status` at
 any time to check your progress.
 
-## Step 7: Link your namespaces
+## Step 8: Link your namespaces
 
 Creating a link requires use of two `skupper` commands in
 conjunction, `skupper token create` and `skupper link create`.
@@ -224,70 +227,41 @@ First, use `skupper token create` in one namespace to generate the
 token.  Then, use `skupper link create` in the other to create a
 link.
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-skupper token create ~/secret.token
-~~~
+    ~~~ shell
+    skupper token create ~/secret.token
+    ~~~
 
-_Sample output:_
+=== "east"
 
-~~~ console
-$ skupper token create ~/secret.token
-Token written to ~/secret.token
-~~~
-
-_**Console for east:**_
-
-~~~ shell
-skupper link create ~/secret.token
-~~~
-
-_Sample output:_
-
-~~~ console
-$ skupper link create ~/secret.token
-Site configured to link to https://10.105.193.154:8081/ed9c37f6-d78a-11ec-a8c7-04421a4c5042 (name=link1)
-Check the status of the link using 'skupper link status'.
-~~~
+    ~~~ shell
+    skupper link create ~/secret.token
+    ~~~
 
 If your console sessions are on different machines, you may need
 to use `sftp` or a similar tool to transfer the token securely.
 By default, tokens expire after a single use or 15 minutes after
 creation.
 
-## Step 8: Deploy the frontend and backend services
+## Step 9: Deploy the frontend and backend services
 
 Use `kubectl create deployment` to deploy the frontend service
 in `west` and the backend service in `east`.
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
-~~~
+    ~~~ shell
+    kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
+    ~~~
 
-_Sample output:_
+=== "east"
 
-~~~ console
-$ kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
-deployment.apps/frontend created
-~~~
+    ~~~ shell
+    kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
+    ~~~
 
-_**Console for east:**_
-
-~~~ shell
-kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
-~~~
-
-_Sample output:_
-
-~~~ console
-$ kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
-deployment.apps/backend created
-~~~
-
-## Step 9: Expose the backend service
+## Step 10: Expose the backend service
 
 We now have two namespaces linked to form a Skupper network, but
 no services are exposed on it.  Skupper uses the `skupper
@@ -304,20 +278,13 @@ documentation.
 Use `skupper expose` to expose the backend service to the
 frontend service.
 
-_**Console for east:**_
+=== "east"
 
-~~~ shell
-skupper expose deployment/backend --port 8080
-~~~
+    ~~~ shell
+    skupper expose deployment/backend --port 8080
+    ~~~
 
-_Sample output:_
-
-~~~ console
-$ skupper expose deployment/backend --port 8080
-deployment backend exposed as backend
-~~~
-
-## Step 10: Expose the frontend service
+## Step 11: Expose the frontend service
 
 We have established connectivity between the two namespaces and
 made the backend in `east` available to the frontend in `west`.
@@ -327,20 +294,13 @@ the frontend.
 Use `kubectl expose` with `--type LoadBalancer` to open network
 access to the frontend service.
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-kubectl expose deployment/frontend --port 8080 --type LoadBalancer
-~~~
+    ~~~ shell
+    kubectl expose deployment/frontend --port 8080 --type LoadBalancer
+    ~~~
 
-_Sample output:_
-
-~~~ console
-$ kubectl expose deployment/frontend --port 8080 --type LoadBalancer
-service/frontend exposed
-~~~
-
-## Step 11: Test the application
+## Step 12: Test the application
 
 Now we're ready to try it out.  Use `kubectl get service/frontend`
 to look up the external IP of the frontend service.  Then use
@@ -350,23 +310,12 @@ that address.
 **Note:** The `<external-ip>` field in the following commands is a
 placeholder.  The actual value is an IP address.
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-kubectl get service/frontend
-curl http://<external-ip>:8080/api/health
-~~~
-
-_Sample output:_
-
-~~~ console
-$ kubectl get service/frontend
-NAME       TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
-frontend   LoadBalancer   10.103.232.28   <external-ip>   8080:30407/TCP   15s
-
-$ curl http://<external-ip>:8080/api/health
-OK
-~~~
+    ~~~ shell
+    kubectl get service/frontend
+    curl http://<external-ip>:8080/api/health
+    ~~~
 
 If everything is in order, you can now access the web interface by
 navigating to `http://<external-ip>:8080/` in your browser.
@@ -383,24 +332,12 @@ password.
 following output are placeholders.  The actual values are specific
 to your environment.
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-skupper status
-kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d
-~~~
-
-_Sample output:_
-
-~~~ console
-$ skupper status
-Skupper is enabled for namespace "west" in interior mode. It is connected to 1 other site. It has 1 exposed service.
-The site console url is: <console-url>
-The credentials for internal console-auth mode are held in secret: 'skupper-console-users'
-
-$ kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d
-<password>
-~~~
+    ~~~ shell
+    skupper status
+    kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d
+    ~~~
 
 Navigate to `<console-url>` in your browser.  When prompted, log
 in as user `admin` and enter the password.
@@ -410,20 +347,20 @@ in as user `admin` and enter the password.
 To remove Skupper and the other resources from this exercise, use
 the following commands.
 
-_**Console for west:**_
+=== "west"
 
-~~~ shell
-skupper delete
-kubectl delete service/frontend
-kubectl delete deployment/frontend
-~~~
+    ~~~ shell
+    skupper delete
+    kubectl delete service/frontend
+    kubectl delete deployment/frontend
+    ~~~
 
-_**Console for east:**_
+=== "east"
 
-~~~ shell
-skupper delete
-kubectl delete deployment/backend
-~~~
+    ~~~ shell
+    skupper delete
+    kubectl delete deployment/backend
+    ~~~
 
 ## Summary
 
