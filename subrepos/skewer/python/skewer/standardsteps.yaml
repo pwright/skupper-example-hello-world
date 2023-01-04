@@ -96,7 +96,7 @@ install_skupper_in_your_namespaces:
     [minikube-tunnel]: https://skupper.io/start/minikube.html#running-minikube-tunnel
   commands:
     "*":
-      - run: skupper init
+      - run: skupper init --enable-vflow-collector
   postamble: |
     _Sample output:_
 
@@ -185,7 +185,7 @@ test_the_application:
         apply: test
   postamble: |
     If everything is in order, you can now access the web interface by
-    navigating to `http://<external-ip>:8080/` in your browser.
+    navigating to `http://<external-ip>:8010/` in your browser.
 accessing_the_web_console:
   title: Accessing the web console
   numbered: false
@@ -211,7 +211,7 @@ accessing_the_web_console:
         apply: readme
         output: <password>
       - await_external_ip: service/skupper
-      - run: curl --fail --insecure --verbose --retry 60 --retry-connrefused --retry-delay 2 $(kubectl get service/skupper -o jsonpath='https://{.status.loadBalancer.ingress[0].ip}:8080/') --user admin:$(kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d); echo
+      - run: curl --fail --insecure --verbose --retry 60 --retry-connrefused --retry-delay 2 $(kubectl get service/skupper -o jsonpath='https://{.status.loadBalancer.ingress[0].ip}:8010/') --user admin:$(kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d); echo
         apply: test
   postamble: |
     Navigate to `<console-url>` in your browser.  When prompted, log
