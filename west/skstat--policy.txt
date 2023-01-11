@@ -1,0 +1,22 @@
+2023-01-11 11:15:56.595324 UTC
+west-skupper-router-79664f4686-qbmnx
+
+Policy Configuration
+  attr                            value
+  ==========================================
+  Maximum Concurrent Connections  65535
+  Maximum Message Size            0
+  Enable Vhost Policy             False
+  Enable Vhost Name Patterns      False
+  Policy Directory                (nil)
+  Default Vhost                   $default
+
+Policy Status
+  attr                         value
+  ====================================
+  Connections Processed        55
+  Connections Denied           0
+  Connections Current          22
+  Links Denied                 0
+  Maximum Message Size Denied  0
+  Total Denials                0

@@ -1,0 +1,37 @@
+2023-01-11 11:18:16.088892 UTC
+east-skupper-router-6c8866fc67-nc448
+
+Router Addresses
+  class   addr                                                     distrib    pri  local  remote  in   out  thru
+  ================================================================================================================
+  local   $_management_internal                                    closest    -    0      0       0    0    0
+  mobile  $management                                              closest    -    0      0       346  0    0
+  local   $management                                              closest    -    0      0       33   0    0
+  mobile  _$qd.edge_addr_tracking                                  balanced   -    0      0       0    0    0
+  mobile  _$qd.edge_heartbeat                                      balanced   -    0      0       0    0    0
+  mobile  _$qd.mesh_discovery                                      balanced   -    0      0       0    0    0
+  mobile  backend:8080                                             balanced   -    3      0       15   15   0
+  mobile  e76b920e-47df-4eda-9858-64f26ab61d48/skupper-site-query  balanced   -    0      1       2    0    2
+  mobile  f73ffa81-3475-4bf4-89e3-b64d39a1baf5/skupper-site-query  balanced   -    1      0       4    6    0
+  mobile  mc/$skupper-service-sync                                 multicast  -    1      1       353  704  351
+  mobile  mc/sfe.all                                               multicast  -    1      1       118  583  292
+  mobile  mc/sfe.e76b920e-47df-4eda-9858-64f26ab61d48              multicast  -    1      1       0    126  0
+  mobile  mc/sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5              multicast  -    1      1       144  144  132
+  mobile  mc/sfe.nc448:0                                           multicast  -    1      1       0    891  891
+  mobile  mc/sfe.qbmnx:0                                           multicast  -    1      1       0    887  0
+  local   qdhello                                                  flood      -    1      0       0    0    0
+  local   qdrouter                                                 flood      -    0      0       0    0    0
+  topo    qdrouter                                                 flood      -    0      1       0    0    63
+  local   qdrouter.ma                                              multicast  -    0      0       0    0    0
+  topo    qdrouter.ma                                              multicast  -    0      1       0    0    4
+  mobile  sfe.e76b920e-47df-4eda-9858-64f26ab61d48                 balanced   -    0      1       1    0    1
+  mobile  sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5                 balanced   -    1      0       1    2    0
+  mobile  sfe.nc448:0                                              closest    -    0      0       1    0    0
+  mobile  sfe.qbmnx:0                                              closest    -    0      1       1    0    1
+  local   temp.6x6ao0X4sxh8AiZ                                     balanced   -    1      0       4    18   0
+  local   temp.8ecKrZJBctjWoaw                                     balanced   -    1      0       0    1    0
+  local   temp.9COfQhK6avCj11E                                     balanced   -    1      0       0    40   0
+  local   temp.AWusLz9ITzh+yCg                                     balanced   -    1      0       0    3    0
+  local   temp.BJWTPbl5uNdH3JW                                     balanced   -    1      0       0    1    0
+  local   temp.Fkvp341dvOrhISK                                     balanced   -    1      0       0    311  0
+  router  west-skupper-router-79664f4686-qbmnx                     closest    -    0      1       26   0    41

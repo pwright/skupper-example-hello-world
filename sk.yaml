@@ -1,0 +1,176 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  creationTimestamp: "2023-01-06T11:35:26Z"
+  generation: 2
+  name: skupper-router
+  namespace: west
+  ownerReferences:
+  - apiVersion: v1
+    kind: ConfigMap
+    name: skupper-site
+    uid: 0f5ce14e-eed1-4c09-81a9-430717650295
+  resourceVersion: "14708"
+  uid: 46f5aace-a247-41c3-952a-3474a077d7d5
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      skupper.io/component: router
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "9090"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/name: skupper-router
+        app.kubernetes.io/part-of: skupper
+        application: skupper-router
+        skupper.io/component: router
+    spec:
+      containers:
+      - env:
+        - name: APPLICATION_NAME
+          value: skupper-router
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        - name: QDROUTERD_AUTO_MESH_DISCOVERY
+          value: QUERY
+        - name: QDROUTERD_CONF
+          value: /etc/skupper-router/config/skrouterd.json
+        - name: QDROUTERD_CONF_TYPE
+          value: json
+        - name: SKUPPER_SITE_ID
+          value: 0f5ce14e-eed1-4c09-81a9-430717650295
+        - name: SKUPPER_ROUTER_DISABLE_867_FIX
+          value: "true"
+        image: quay.io/skupper/skupper-router:main
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: router
+        ports:
+        - containerPort: 5671
+          name: amqps
+          protocol: TCP
+        - containerPort: 9090
+          name: http
+          protocol: TCP
+        - containerPort: 55671
+          name: inter-router
+          protocol: TCP
+        - containerPort: 45671
+          name: edge
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/skupper-router-certs/skupper-amqps/
+          name: skupper-local-server
+        - mountPath: /etc/skupper-router/config/
+          name: router-config
+        - mountPath: /etc/skupper-router-certs/skupper-internal/
+          name: skupper-site-server
+        - mountPath: /etc/skupper-router-certs
+          name: skupper-router-certs
+      - env:
+        - name: SKUPPER_ROUTER_DISABLE_867_FIX
+          value: "true"
+        image: quay.io/skupper/config-sync:master
+        imagePullPolicy: Always
+        name: config-sync
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 9191
+            scheme: HTTP
+          initialDelaySeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/skupper-router-certs
+          name: skupper-router-certs
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: skupper-router
+      serviceAccountName: skupper-router
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: skupper-local-server
+        secret:
+          defaultMode: 420
+          secretName: skupper-local-server
+      - configMap:
+          defaultMode: 420
+          name: skupper-internal
+        name: router-config
+      - name: skupper-site-server
+        secret:
+          defaultMode: 420
+          secretName: skupper-site-server
+      - emptyDir: {}
+        name: skupper-router-certs
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2023-01-06T11:36:03Z"
+    lastUpdateTime: "2023-01-06T11:36:03Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2023-01-06T11:35:31Z"
+    lastUpdateTime: "2023-01-06T16:50:55Z"
+    message: ReplicaSet "skupper-router-85bf78c476" is progressing.
+    reason: ReplicaSetUpdated
+    status: "True"
+    type: Progressing
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 2
+  unavailableReplicas: 1
+  updatedReplicas: 1

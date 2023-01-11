@@ -1,0 +1,61 @@
+2023-01-11 11:15:54.929424 UTC
+west-skupper-router-79664f4686-qbmnx
+
+Router Links
+  type            dir  conn id  id   peer  class   addr                                                     cap  pri  undel  unsett  deliv  presett  psdrop  acc  rej  rel  mod  delay  rate  stuck  cred  blkd
+  ===============================================================================================================================================================================================================
+  endpoint        out  1        2          local   temp.dz0aKxmlLxzEmJU                                     250  4    0      0       281    281      0       0    0    0    0    0      0     0      9     -
+  endpoint        in   1        3          mobile  $management                                              250  4    0      0       281    0        0       281  0    0    0    0      0     0      250   -
+  endpoint        in   1        4                                                                           250  4    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  endpoint        out  4        5          local   temp.mBUFtsIgqW2Yp3M                                     250  4    0      0       1      1        0       0    0    0    0    0      0     0      9     -
+  endpoint        in   5        6          mobile  mc/$skupper-service-sync                                 250  4    0      0       327    0        0       327  0    0    0    0      0     0      250   -
+  endpoint        in   4        7          mobile  $management                                              250  4    0      0       1      0        0       1    0    0    0    0      0     0      250   -
+  endpoint        in   7        8          mobile  mc/sfe.all                                               250  4    0      0       109    0        0       109  0    0    0    0      0     0      250   -
+  endpoint        in   4        9                                                                           250  4    0      0       6      0        0       6    0    0    0    0      0     0      250   -
+  endpoint        out  2        10         mobile  sfe.e76b920e-47df-4eda-9858-64f26ab61d48                 250  4    0      0       2      0        0       2    0    0    0    0      0     0      8     -
+  endpoint        out  6        11         mobile  mc/$skupper-service-sync                                 250  4    0      0       650    0        0       650  0    0    0    0      0     0      10    -
+  endpoint        out  4        12         mobile  e76b920e-47df-4eda-9858-64f26ab61d48/skupper-site-query  250  4    0      0       6      0        0       6    0    0    0    0      0     0      9     -
+  endpoint        in   3        13         mobile  mc/sfe.e76b920e-47df-4eda-9858-64f26ab61d48              250  4    0      0       130    0        0       130  0    0    0    0      0     0      250   -
+  endpoint        out  8        14         local   temp.Yu8Dlvo68rwb+Ab                                     250  4    0      0       18     12       0       6    0    0    0    0      0     0      7     -
+  endpoint        in   8        15         mobile  $management                                              250  4    0      0       3      0        0       3    0    0    0    0      0     0      250   -
+  endpoint        in   8        16                                                                          250  4    0      0       15     0        0       15   0    0    0    0      0     0      250   -
+  endpoint        out  9        17         local   temp.RoOOTLBh5NjWC_l                                     250  4    0      0       40     40       0       0    0    0    0    0      0     0      6     -
+  endpoint        in   9        18         mobile  $management                                              250  4    0      0       7      0        0       7    0    0    0    0      0     0      250   -
+  endpoint        in   9        19                                                                          250  4    0      0       33     0        0       33   0    0    0    0      0     0      250   -
+  endpoint        out  10       20         mobile  mc/sfe.all                                               250  4    0      0       538    322      0       216  0    0    0    0      0     0      7     -
+  endpoint        out  12       21         mobile  mc/sfe.e76b920e-47df-4eda-9858-64f26ab61d48              250  4    0      0       130    0        0       130  0    0    0    0      0     0      10    -
+  endpoint        in   11       22         mobile  sfe.e76b920e-47df-4eda-9858-64f26ab61d48                 250  4    0      0       1      0        0       1    0    0    0    0      0     0      250   -
+  router-control  out  15       23         local   qdhello                                                  250  9    0      0       1676   1676     0       0    0    0    0    0      1     0      250   -
+  router-control  in   15       24                                                                          250  9    0      0       1677   1677     0       0    0    0    0    0      0     0      250   -
+  inter-router    out  15       25                                                                          250  0    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    in   15       26                                                                          250  0    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    out  15       27                                                                          250  1    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    in   15       28                                                                          250  1    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    out  15       29                                                                          250  2    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    in   15       30                                                                          250  2    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    out  15       31                                                                          250  3    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    in   15       32                                                                          250  3    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    out  15       33                                                                          250  4    0      0       1548   986      0       562  0    0    0    0      0     0      250   -
+  inter-router    in   15       34                                                                          250  4    0      0       1558   991      0       567  0    0    0    0      0     0      250   -
+  inter-router    out  15       35                                                                          250  5    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    in   15       36                                                                          250  5    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    out  15       37                                                                          250  6    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    in   15       38                                                                          250  6    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    out  15       39                                                                          250  7    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    in   15       40                                                                          250  7    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    out  15       41                                                                          250  8    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    in   15       42                                                                          250  8    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    out  15       43                                                                          250  9    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  inter-router    in   15       44                                                                          250  9    0      0       0      0        0       0    0    0    0    0      0     0      250   -
+  endpoint        in   17       45         mobile  sfe.qbmnx:0                                              250  4    0      0       1      0        0       1    0    0    0    0      0     0      250   -
+  endpoint        out  16       46         mobile  mc/sfe.qbmnx:0                                           250  4    0      0       823    823      0       0    0    0    0    0      0     0      7     -
+  endpoint        out  18       47         mobile  mc/sfe.nc448:0                                           250  4    0      0       821    821      0       0    0    0    0    0      0     0      9     -
+  endpoint        in   19       48         mobile  sfe.nc448:0                                              250  4    0      0       1      0        0       1    0    0    0    0      0     0      250   -
+  endpoint        out  21       49         mobile  mc/sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5              250  4    0      0       122    0        0       122  0    0    0    0      0     0      8     -
+  endpoint        in   20       50         mobile  sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5                 250  4    0      0       1      0        0       1    0    0    0    0      0     0      250   -
+  endpoint        out  14       53                                                                          250  4    0      0       8      8        0       0    0    0    0    0      0     0      250   -
+  endpoint        in   13       54                                                                          250  4    0      0       8      0        0       8    0    0    0    0      0     0      250   -
+  endpoint        out  13       103                                                                         250  4    0      0       7      7        0       0    0    0    0    0      0     0      250   -
+  endpoint        in   14       104                                                                         250  4    0      0       7      0        0       7    0    0    0    0      0     0      250   -
+  endpoint        in   65       141        mobile  $management                                              250  4    0      0       2      0        0       2    0    0    0    0      0     0      250   -
+  endpoint        out  65       142        local   temp.XylsU+zq6LyZBDa                                     250  4    0      0       1      1        0       0    0    0    0    0      0     0      1     -

@@ -1,0 +1,9 @@
+2023-01-11 11:15:55.288676 UTC
+west-skupper-router-79664f4686-qbmnx
+
+Routers in the Network
+Last Topology Change: Wednesday Jan 11 10:49:07 2023 GMT
+  router-id                             next-hop  link
+  ======================================================
+  east-skupper-router-6c8866fc67-nc448  -         0
+  west-skupper-router-79664f4686-qbmnx  (self)    -
