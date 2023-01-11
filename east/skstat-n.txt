@@ -1,9 +1,9 @@
-2023-01-11 11:18:15.425186 UTC
+2023-01-11 14:56:10.264754 UTC
 east-skupper-router-6c8866fc67-nc448
 
 Routers in the Network
 Last Topology Change: Wednesday Jan 11 10:49:07 2023 GMT
-  router-id                             next-hop  link
-  ======================================================
-  east-skupper-router-6c8866fc67-nc448  (self)    -
-  west-skupper-router-79664f4686-qbmnx  -         0
+  router-id                             next-hop  link  ver  cost  neighbors                                 valid-origins
+  ==========================================================================================================================
+  east-skupper-router-6c8866fc67-nc448  (self)    -     1          ['west-skupper-router-79664f4686-qbmnx']  []
+  west-skupper-router-79664f4686-qbmnx  -         0     1    1     ['east-skupper-router-6c8866fc67-nc448']  []

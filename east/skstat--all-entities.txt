@@ -1,0 +1,258 @@
+2023-01-11 14:56:13.635856 UTC
+east-skupper-router-6c8866fc67-nc448
+
+Router Links
+  type            dir  conn id  id   peer  class   addr                                                     cap  pri  undel  unsett  deliv  presett  psdrop  acc   rej  rel  mod  delay  rate  stuck  cred  blkd  admin    oper  name
+  ==========================================================================================================================================================================================================================================================================================================
+  endpoint        out  1        2          local   temp.Fkvp341dvOrhISK                                     250  4    0      0       2491   2491     0       0     0    0    0    0      0     0      10    -     enabled  up    5vHqhQGy_M_BsDjxWHxgjB13NXGIncFL8G6OuS-5UzH2Vr6ZEZRc2Q
+  endpoint        in   1        3          mobile  $management                                              250  4    0      0       2491   0        0       2491  0    0    0    0      0     0      250   -     enabled  up    qa6GfDTfQmYcpeWxXlJXCv6jNW1teYmg75LXqvENANDbAjMu3l0NGQ
+  endpoint        in   1        4                                                                           250  4    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    uwtoPh4DT7vc-8d7FT-aMTMSb2uy-rwvyVs_7_gVDvWeuIPyd25AKA
+  endpoint        in   5        5          mobile  mc/sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5              250  4    0      0       1059   0        0       1059  0    0    0    0      0     0      250   -     enabled  up    V2LgqzIO6qyVk67fK7_f_7zmhUx_a2eU0JysGZF7mYiwYPNHHE2uhQ
+  endpoint        in   4        6          mobile  mc/sfe.all                                               250  4    0      0       990    0        0       990   0    0    0    0      0     0      250   -     enabled  up    n2DFhD-zXzGxEI2eqGYsmpdBsI3TYSHbn1T4eEKya975dE6zI2tBzQ
+  endpoint        out  3        7          local   temp.8ecKrZJBctjWoaw                                     250  4    0      0       1      1        0       0     0    0    0    0      0     0      9     -     enabled  up    pW09sGQk0Yy7zDA4c-Z8ki5lIR8LjLERemAp_mxQP7TfFvQsAX9aiw
+  endpoint        out  2        8          mobile  sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5                 250  4    0      0       2      0        0       2     0    0    0    0      0     0      8     -     enabled  up    VX78ylOBfoiaiuypT9R5xQ49n9vBCknfezHB5NcdNlaB1clv1MEjPQ
+  endpoint        in   3        9          mobile  $management                                              250  4    0      0       1      0        0       1     0    0    0    0      0     0      250   -     enabled  up    5hF0RhJ1ldTxYxb-PR5mHJYKJ-iF05DPVkEUkk1PveS0D6rn4xDZ2w
+  endpoint        in   3        10                                                                          250  4    0      0       6      0        0       6     0    0    0    0      0     0      250   -     enabled  up    ehGdYBxgMbS1E0i_l69MDgnIZaUSlvGYaw7hdRbYpELsM-YAzQTVdQ
+  endpoint        out  3        11         mobile  f73ffa81-3475-4bf4-89e3-b64d39a1baf5/skupper-site-query  250  4    0      0       6      0        0       6     0    0    0    0      0     0      9     -     enabled  up    GYR2tb_DXVmHk6JO7fBWkc53GWpHqnKfpKGYtMQGKtI9ip5qXvZ7ow
+  endpoint        in   7        12         mobile  mc/$skupper-service-sync                                 250  4    0      0       2969   0        0       2969  0    0    0    0      0     0      250   -     enabled  up    lwDBp9TrSd3CCWieFEwkrqdTZkxLa6O92CMcFtHpVb2f5jOsM9G_jg
+  endpoint        out  6        13         mobile  mc/$skupper-service-sync                                 250  4    0      0       5936   0        0       5936  0    0    0    0      0     0      9     -     enabled  up    XXi2_H4qCnv9nzAAxIfLWJ5IT6uxbWSQb_ymY4zSxZPlVXwrJB7MNg
+  endpoint        out  8        14         local   temp.6x6ao0X4sxh8AiZ                                     250  4    0      0       18     12       0       6     0    0    0    0      0     0      7     -     enabled  up    BYXEjiNalXY4fzkej3RMk_aPo69yJW_cKx1-SI2OPV-vbJ4PeM_7Aw
+  endpoint        in   8        15         mobile  $management                                              250  4    0      0       3      0        0       3     0    0    0    0      0     0      250   -     enabled  up    jbJCtiRhyInGTy5B2oZACRtfYzIbiUlixpfp4JLPbGd9g8b7SWiTAQ
+  endpoint        in   8        16                                                                          250  4    0      0       15     0        0       15    0    0    0    0      0     0      250   -     enabled  up    U-F78WRHywOHbidOCuVYiKjAMfHiAFr2bHPMkK4N8NS2hDd6Fkf6vg
+  endpoint        out  9        17         local   temp.9COfQhK6avCj11E                                     250  4    0      0       40     40       0       0     0    0    0    0      0     0      6     -     enabled  up    CC6meBsXkdkwFIMl234YrKp-mBk-wsLO6F0_VBEskNeDFJIAygMJ2Q
+  endpoint        in   9        18         mobile  $management                                              250  4    0      0       7      0        0       7     0    0    0    0      0     0      250   -     enabled  up    BUF2t4r6iiPdfTxC8X_SWkI80pmHuMD0x1Fo1WZKgevRSbbYWZYLOA
+  endpoint        in   9        19                                                                          250  4    0      0       33     0        0       33    0    0    0    0      0     0      250   -     enabled  up    55nS17gzZ9MuaE4RpUQUMRHn9aqHgjiMCzBDruO-1zeVnCwFi8to-A
+  endpoint        out  10       20         mobile  mc/sfe.all                                               250  4    0      0       4943   2965     0       1978  0    0    0    0      0     0      7     -     enabled  up    xnoL-5NHjsTI0Gm9foxbxkzSB3Vkxu5bNhKcjHgZDl15bp5ygcP76w
+  endpoint        out  11       21         mobile  mc/sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5              250  4    0      0       1059   0        0       1059  0    0    0    0      0     0      6     -     enabled  up    lI7kscUnf8jzFNwrLrSFXHDYntKqhgrhABfaRpxx-9i-SqKoaMaWKA
+  endpoint        in   12       22         mobile  sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5                 250  4    0      0       1      0        0       1     0    0    0    0      0     0      250   -     enabled  up    f6AgWHgcUAsnNguwfZxptHMBfNd0SHZR-BvGixtmChOvaZr4fJnxhA
+  endpoint        out  16       29         local   temp.AWusLz9ITzh+yCg                                     250  4    0      0       3      3        0       0     0    0    0    0      0     0      7     -     enabled  up    uZgDEXpxNvxMZc0OOejBTfd4LcRGd91d2NwhqCoHgDprsGczLmGC5g
+  endpoint        in   16       30         mobile  $management                                              250  4    0      0       3      0        0       3     0    0    0    0      0     0      250   -     enabled  up    WsYi78JACo1Iu5xpVI2UlJijJz_7LL_tfozi5_K_euLLyLr9YBQpow
+  endpoint        in   16       31                                                                          250  4    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    QVqm5aS2oiTFtS1zP44-g763bO-6Ol5FxD1dRrnceNbXAAScEy88ZQ
+  router-control  in   19       32                                                                          250  9    0      0       15329  15329    0       0     0    0    0    0      1     0      250   -     enabled  up    qdlink.5aYbZVGr0aHOuds
+  router-control  out  19       33         local   qdhello                                                  250  9    0      0       15331  15331    0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.mF9ScMyh4Xk5eM+
+  inter-router    in   19       34                                                                          250  0    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.HBbKN4UQt4DdO0_
+  inter-router    out  19       35                                                                          250  0    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.JwyxOgXBmO1l_oh
+  inter-router    in   19       36                                                                          250  1    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.Et0mUWe_gLkOZe8
+  inter-router    out  19       37                                                                          250  1    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.g7TuOXeb5UAtrIv
+  inter-router    in   19       38                                                                          250  2    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.UC1QdDnULHzXMn9
+  inter-router    out  19       39                                                                          250  2    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.9IG9pVPTQneAtIQ
+  inter-router    in   19       40                                                                          250  3    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.i8r_HvsQn4EI86g
+  inter-router    out  19       41                                                                          250  3    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.CHSyMVaNd3TTdXA
+  inter-router    in   19       42                                                                          250  4    0      0       13963  8952     0       5011  0    0    0    0      1     0      250   -     enabled  up    qdlink.cAStOIShvSUoRfE
+  inter-router    out  19       43                                                                          250  4    0      0       13975  8953     0       5022  0    0    0    0      1     0      250   -     enabled  up    qdlink.0MmcuLHGCvFy+ke
+  inter-router    in   19       44                                                                          250  5    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.XhNP5mzohpy29Z4
+  inter-router    out  19       45                                                                          250  5    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.YR9Hq0TaIsbR8Zh
+  inter-router    in   19       46                                                                          250  6    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.kjrODJ5eIDM2dMl
+  inter-router    out  19       47                                                                          250  6    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.+pmyXmaiKguqa4U
+  inter-router    in   19       48                                                                          250  7    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.S9OkBp6wsz1QvE7
+  inter-router    out  19       49                                                                          250  7    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.H6kOzFFa_ldUtYD
+  inter-router    in   19       50                                                                          250  8    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.bdgyzbktQM7n9Uy
+  inter-router    out  19       51                                                                          250  8    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.sFOTXNxtriY7eYj
+  inter-router    in   19       52                                                                          250  9    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink._HcCeqBaz1FPEEp
+  inter-router    out  19       53                                                                          250  9    0      0       0      0        0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.RwP_hKWH5d0i9CA
+  endpoint        in   21       56         mobile  sfe.nc448:0                                              250  4    0      0       1      0        0       1     0    0    0    0      0     0      250   -     enabled  up    K8FgZZpe86zma19Z7UHRsOmEV1BH-xKFGXBgGdUEdOHmv9_e710JVQ
+  endpoint        out  22       57         mobile  mc/sfe.nc448:0                                           250  4    0      0       7461   7461     0       0     0    0    0    0      0     0      9     -     enabled  up    A1LWNhdMvL1nUVlW5Rdsw6chS6C0dnGVwWD2I3_Lz1AmusT1P0a7Yw
+  endpoint        out  23       58         mobile  mc/sfe.qbmnx:0                                           250  4    0      0       7457   7457     0       0     0    0    0    0      0     0      8     -     enabled  up    uaRXlZqLIVZtNPlVPGR_aQwTB9S805W2kACgeJ4Bo9t7U3n-ZxKrTw
+  endpoint        in   24       59         mobile  sfe.qbmnx:0                                              250  4    0      0       1      0        0       1     0    0    0    0      0     0      250   -     enabled  up    qWalhfyLkrL4sNvchPm6tW45J4h3kv-tO7kZbzjwuk9nX0Kh_vefyA
+  endpoint        out  26       60         mobile  mc/sfe.e76b920e-47df-4eda-9858-64f26ab61d48              250  4    0      0       1041   0        0       1041  0    0    0    0      0     0      9     -     enabled  up    JwkIOdF0aMAAX0C6szAUg59O50HNBWLAdfmWixYKM0Dn7XUc1tocpw
+  endpoint        in   25       61         mobile  sfe.e76b920e-47df-4eda-9858-64f26ab61d48                 250  4    0      0       1      0        0       1     0    0    0    0      0     0      250   -     enabled  up    poRUezSUlN_Z1_Z673NwV7E3jzVgK0WnSfRLLuSDaxsuqT_-FYDwrQ
+  endpoint        out  27       62         mobile  backend:8080                                             250  4    0      0       16     0        0       0     0    0    0    0      0     0      10    -     enabled  up    tcp.egress.out
+  endpoint        out  28       63         mobile  backend:8080                                             250  4    0      0       15     0        0       0     0    0    0    0      0     0      10    -     enabled  up    tcp.egress.out
+  endpoint        out  29       64         mobile  backend:8080                                             250  4    0      0       15     0        0       0     0    0    0    0      0     0      10    -     enabled  up    tcp.egress.out
+  endpoint        in   18       65                                                                          250  4    0      0       23     0        0       23    0    0    0    0      0     0      250   -     enabled  up    qdlink.Hn4m8QYm1ouCAfr
+  endpoint        out  17       68                                                                          250  4    0      0       23     23       0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.F6BXsUuOiswI6wa
+  endpoint        in   17       69                                                                          250  4    0      0       23     0        0       23    0    0    0    0      0     0      250   -     enabled  up    qdlink.VJvds2OZeLXKbC4
+  endpoint        out  18       72                                                                          250  4    0      0       23     23       0       0     0    0    0    0      0     0      250   -     enabled  up    qdlink.CeKM7l3Hn90ibzN
+  endpoint        in   118      261        mobile  $management                                              250  4    0      0       3      0        0       3     0    0    0    0      0     0      250   -     enabled  up    67911ba0-ccad-4b35-b612-985e97cee29f-$management
+  endpoint        out  118      262        local   temp.nF2mbfsMlsabt35                                     250  4    0      0       2      2        0       0     0    0    0    0      0     0      1     -     enabled  up    67911ba0-ccad-4b35-b612-985e97cee29f-0374bc6d-cd26-4a7e-a913-7b7af2ef4429
+
+Router Addresses
+  class   addr                                                     distrib    pri  in-proc  local  remote  in     out    thru   to-proc  from-proc  watch
+  =========================================================================================================================================================
+  local   $_management_internal                                    closest    -    1        0      0       0      0      0      2,580    2,580      
+  mobile  $management                                              closest    -    1        0      0       2,653  0      0      2,653    0          
+  local   $management                                              closest    -    1        0      0       37     0      0      46       0          
+  mobile  _$qd.edge_addr_tracking                                  balanced   -    0        0      0       0      0      0      0        0          
+  mobile  _$qd.edge_heartbeat                                      balanced   -    0        0      0       0      0      0      0        0          
+  mobile  _$qd.mesh_discovery                                      balanced   -    0        0      0       0      0      0      0        0          
+  mobile  backend:8080                                             balanced   -    0        3      0       46     46     0      0        0          Y
+  mobile  e76b920e-47df-4eda-9858-64f26ab61d48/skupper-site-query  balanced   -    0        0      1       2      0      2      0        0          
+  mobile  f73ffa81-3475-4bf4-89e3-b64d39a1baf5/skupper-site-query  balanced   -    0        1      0       4      6      0      0        0          
+  mobile  mc/$skupper-service-sync                                 multicast  -    0        1      1       2,969  5,936  2,967  0        0          
+  mobile  mc/sfe.all                                               multicast  -    0        1      1       990    4,943  2,472  0        1,483      Y
+  mobile  mc/sfe.e76b920e-47df-4eda-9858-64f26ab61d48              multicast  -    0        1      1       0      1,041  0      0        0          
+  mobile  mc/sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5              multicast  -    0        1      1       1,059  1,059  1,047  0        0          
+  mobile  mc/sfe.nc448:0                                           multicast  -    0        1      1       0      7,461  7,461  0        7,461      Y
+  mobile  mc/sfe.qbmnx:0                                           multicast  -    0        1      1       0      7,457  0      0        0          
+  local   qdhello                                                  flood      -    1        1      0       0      0      0      14,823   14,831     
+  local   qdrouter                                                 flood      -    1        0      0       0      0      0      4        0          
+  topo    qdrouter                                                 flood      -    1        0      1       0      0      499    497      503        
+  local   qdrouter.ma                                              multicast  -    1        0      0       0      0      0      2        0          
+  topo    qdrouter.ma                                              multicast  -    1        0      1       0      0      4      3        0          
+  mobile  sfe.e76b920e-47df-4eda-9858-64f26ab61d48                 balanced   -    0        0      1       1      0      1      0        0          
+  mobile  sfe.f73ffa81-3475-4bf4-89e3-b64d39a1baf5                 balanced   -    0        1      0       1      2      0      0        0          
+  mobile  sfe.nc448:0                                              closest    -    1        0      0       1      0      0      2        0          
+  mobile  sfe.qbmnx:0                                              closest    -    0        0      1       1      0      1      0        0          
+  local   temp.6x6ao0X4sxh8AiZ                                     balanced   -    0        1      0       4      18     0      0        9          
+  local   temp.8ecKrZJBctjWoaw                                     balanced   -    0        1      0       0      1      0      0        1          
+  local   temp.9COfQhK6avCj11E                                     balanced   -    0        1      0       0      40     0      0        34         
+  local   temp.AWusLz9ITzh+yCg                                     balanced   -    0        1      0       0      3      0      0        3          
+  local   temp.Fkvp341dvOrhISK                                     balanced   -    0        1      0       0      2,491  0      0        2,491      
+  local   temp.nF2mbfsMlsabt35                                     balanced   -    0        1      0       0      3      0      0        3          
+  router  west-skupper-router-79664f4686-qbmnx                     closest    -    0        0      1       61     0      76     0        13         
+
+Connections
+  id   host                 container                                               role               proto  dir  security                         authentication                  meshId  last dlv      uptime
+  ======================================================================================================================================================================================================================
+  1    ::1:52680            IEJjI-PlC3hr_fYLS0d5l3fFqJSixhdkIEe3xbPMgl3575xIulYL9w  normal             amqp   in   no-security                      no-auth                                 000:00:00:19  000:04:07:11
+  3    10.85.0.1:37362      TuZyWP3pGBzE27IvhBeFx4JOnxg_kMKv_RKrEfh9XXTqKsul-wTbMg  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:04:23  000:04:07:10
+  5    10.85.0.1:43252      DmA1P4VKJ-F3wuHnN8OhQzR4bOxT9ktDkPFNA7AkdNVKrCKXxo-Acg  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:02  000:04:07:10
+  4    10.85.0.1:9066       HSaOeXh7Aebq1vVkbfDALTulefrgLOYxzvO_jQha7dyo7o2tnS4Euw  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:02  000:04:07:10
+  2    10.85.0.1:41556      FlJpii_FWwMc7_N9Y29cS-3WVG1CQpim2Wb4admws1QCn_eEDedzIw  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:39  000:04:07:10
+  7    10.85.0.1:17535      Dnz5r0Gt8SjFJ_MXPu7UE5YBr3znnW4wWh_4UrI30dZPdLwtuFfPAA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:02  000:04:07:10
+  6    10.85.0.1:17855      ifR8LTAYI45C7fxEsvciXhVixPheI3_Z8K87AEU7Z-ZpzKtPvjfZDA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:00  000:04:07:10
+  8    10.85.0.1:36643      FniGeW7s1SUDvtiFkLmz3PZejqPG9os8pWeElXl_AjI6jahpXsc25Q  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:07:00  000:04:07:07
+  9    10.85.0.1:45951      q8JSRNQzQZTTNI7v66k4r5JkbZvZHK1grzNQEgt2hS5mX35nRiX3EQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:04:23  000:04:07:07
+  10   10.85.0.1:44616      TmjNjrgJlA0z4fsGL9p6MMDduopViShPZ95Qiycu8dtz1dR3EVczgA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:02  000:04:07:06
+  12   10.85.0.1:11268      M7FxzENkxTnMz2KKJinoSBxgvetdkTerzRZR5kdeuIsa0kbdML0YFA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:56  000:04:07:06
+  11   10.85.0.1:8011       bfv-RFNnH4jaJElXstblyvjeZlx_0Vtw6M9A-xxjyF_BeSrIQ4zeOA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:02  000:04:07:06
+  16   ::1:50450            cisMRsaxPafS8adOV7azqaEqfQsd4dS7maJKlu8FxMFRPIq38UJRPw  normal             amqp   in   no-security                      no-auth                                 000:04:07:02  000:04:07:02
+  18   10.96.178.101:55671  west-skupper-router-79664f4686-qbmnx                    inter-router-data  amqp   out  TLSv1.3(TLS_AES_256_GCM_SHA384)  x.509                                   000:00:38:50  000:04:07:02
+  17   10.96.178.101:55671  west-skupper-router-79664f4686-qbmnx                    inter-router-data  amqp   out  TLSv1.3(TLS_AES_256_GCM_SHA384)  x.509                                   000:00:38:50  000:04:07:02
+  19   10.96.178.101:55671  west-skupper-router-79664f4686-qbmnx                    inter-router       amqp   out  TLSv1.3(TLS_AES_256_GCM_SHA384)  x.509                                   000:00:00:00  000:04:07:02
+  21   10.85.0.1:26373      -QTrHLbbk0J0eUh4O3yJf8IHOFUwbRgHpGdYSTFU-woiAjrEMoR8xQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:46  000:04:06:58
+  22   10.85.0.1:53293      CEWiprBREC5hj2kzXIUumsPGaGghR1N_MtDbQatNZq9rdm37Mphdhg  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:00  000:04:06:58
+  23   10.85.0.1:4317       RwE8vftAtSnCJJEKMfo0X4v982rmmRnI7iOLFh6ewOHAwFTGNkOOkQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:00  000:04:06:51
+  24   10.85.0.1:33815      fK5jyF1-rG1-rqV4VUxiCDNTR8zzI0Jp46X5zk07S_bDTwlPoOaCCw  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:46  000:04:06:51
+  26   10.85.0.1:23616      u3geQdtTXHi2Q7dwppNs9ssHyTeWJuPdbPEQKpwVxspBWk30LruFHQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:10  000:04:06:49
+  25   10.85.0.1:40112      WOJPeQY0kDqluGcQqV1tVSSvEzqi5jQ7eygsQRWpEIWGWzZtYWqlIA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:26  000:04:06:49
+  27   egress-dispatch      TcpAdaptor                                              normal             tcp    out  no-security                      no-auth                                 000:00:38:50  000:04:06:39
+  28   egress-dispatch      TcpAdaptor                                              normal             tcp    out  no-security                      no-auth                                 000:00:38:51  000:04:06:39
+  29   egress-dispatch      TcpAdaptor                                              normal             tcp    out  no-security                      no-auth                                 000:00:38:51  000:04:06:39
+  118  127.0.0.1:57636      67911ba0-ccad-4b35-b612-985e97cee29f                    normal             amqp   in   no-security                      no-auth                                 000:00:00:00  000:00:00:00
+
+AutoLinks
+No AutoLinks found
+
+Router Statistics
+  attr                             value
+  ===========================================================================
+  Version                          3cd7fd0fdcd42b4cc0717777edff20c582551130
+  Mode                             interior
+  Router Id                        east-skupper-router-6c8866fc67-nc448
+  Worker Threads                   4
+  Uptime                           000:04:07:11
+  VmSize                           630 MiB
+  Area                             0
+  Auto Links                       0
+  Links                            61
+  Nodes                            1
+  Addresses                        31
+  Connections                      26
+  Presettled Count                 46
+  Dropped Presettled Count         0
+  Accepted Count                   12796
+  Rejected Count                   0
+  Released Count                   0
+  Modified Count                   0
+  Deliveries Delayed > 1sec        0
+  Deliveries Delayed > 10sec       0
+  Deliveries Stuck > 10sec         0
+  Links Blocked                    0
+  Ingress Count                    7832
+  Egress Count                     30662
+  Transit Count                    13975
+  Deliveries from Route Container  0
+  Deliveries to Route Container    0
+
+Memory Pools
+  type                        size    batch  thread-max  total  in-threads  rebal-in  rebal-out
+  ===============================================================================================
+  qd_adaptor_buffer_t         16,408  16     32          80     64          42        43
+  qd_adaptor_config_t         72      64     128         64     64          0         0
+  qd_adaptor_listener_t       160     64     128         64     64          0         0
+  qd_bitmask_t                24      64     128         448    320         456       458
+  qd_buffer_t                 536     64     128         512    384         458       460
+  qd_composed_field_t         48      64     128         448    448         0         0
+  qd_composite_t              112     64     128         448    448         0         0
+  qd_connection_t             2,504   16     32          80     80          0         0
+  qd_connector_t              456     64     128         64     64          0         0
+  qd_delivery_state_t         48      64     128         256    256         0         0
+  qd_hash_handle_t            16      64     128         192    192         0         0
+  qd_hash_item_t              40      64     128         192    192         0         0
+  qd_iterator_t               128     64     128         576    320         525       529
+  qd_link_ref_t               24      64     128         256    192         0         1
+  qd_link_t                   136     64     128         256    256         0         0
+  qd_listener_t               352     64     128         64     64          0         0
+  qd_log_entry_t              2,112   16     32          1,088  1,088       0         0
+  qd_management_context_t     56      64     128         256    256         0         0
+  qd_message_content_t        1,088   64     128         512    384         137       139
+  qd_message_stream_data_t    120     64     128         256    256         0         0
+  qd_message_t                96      64     128         576    320         933       937
+  qd_node_t                   56      64     128         64     64          0         0
+  qd_parse_node_t             104     64     128         128    128         0         0
+  qd_parse_tree_t             32      64     128         64     64          0         0
+  qd_parsed_field_t           136     64     128         512    448         351       352
+  qd_session_t                48      64     128         256    256         0         0
+  qd_tcp_adaptor_config_t     16      64     128         64     64          0         0
+  qd_tcp_connector_t          72      64     128         64     64          0         0
+  qd_tcp_listener_t           72      64     128         64     64          0         0
+  qd_timer_t                  112     64     128         192    192         0         0
+  qdr_action_t                136     64     128         512    320         4,546     4,549
+  qdr_address_config_t        72      64     128         64     64          0         0
+  qdr_address_t               392     64     128         128    128         0         0
+  qdr_address_watch_t         72      64     128         64     64          0         0
+  qdr_connection_info_t       144     64     128         256    256         0         0
+  qdr_connection_ref_t        24      64     128         64     64          0         0
+  qdr_connection_t            584     64     128         256    256         0         0
+  qdr_connection_work_t       56      64     128         320    320         0         0
+  qdr_core_timer_t            40      64     128         64     64          0         0
+  qdr_delivery_cleanup_t      32      64     128         512    448         1,510     1,511
+  qdr_delivery_ref_t          24      64     128         512    384         195       197
+  qdr_delivery_t              344     64     128         320    192         577       579
+  qdr_field_t                 32      64     128         448    320         460       462
+  qdr_forward_deliver_info_t  32      64     128         64     64          0         0
+  qdr_general_work_t          160     64     128         512    448         1,664     1,665
+  qdr_link_ref_t              24      64     128         640    512         1,476     1,478
+  qdr_link_t                  512     64     128         320    320         2         2
+  qdr_link_work_t             48      64     128         512    384         1,407     1,409
+  qdr_node_t                  88      64     128         64     64          0         0
+  qdr_query_t                 344     64     128         320    320         0         0
+  qdr_tcp_connection_t        2,464   16     32          64     48          0         1
+  qdr_tcp_stats_t             72      64     128         64     64          0         0
+  qdr_terminus_t              64      64     128         320    320         0         0
+  qdtm_router_t               16      64     128         64     64          0         0
+  vflow_attribute_data_t      32      64     128         64     64          0         0
+  vflow_rate_t                112     64     128         64     64          0         0
+  vflow_record_t              160     64     128         384    384         0         0
+  vflow_work_t                56      64     128         448    320         1,306     1,308
+
+Memory Summary
+  VmSize   Pooled
+  ===================
+  630 MiB  6.04 MiB
+
+Policy Configuration
+  attr                            value
+  ==========================================
+  Maximum Concurrent Connections  65535
+  Maximum Message Size            0
+  Enable Vhost Policy             False
+  Enable Vhost Name Patterns      False
+  Policy Directory                (nil)
+  Default Vhost                   $default
+
+Policy Status
+  attr                         value
+  ====================================
+  Connections Processed        66
+  Connections Denied           0
+  Connections Current          20
+  Links Denied                 0
+  Maximum Message Size Denied  0
+  Total Denials                0
+
+No Vhosts
+
+No Vhost Stats
+

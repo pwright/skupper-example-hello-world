@@ -1,32 +1,32 @@
-2023-01-11 11:18:14.764381 UTC
+2023-01-11 14:56:09.523948 UTC
 east-skupper-router-6c8866fc67-nc448
 
 Connections
-  id  host                 container                                               role               proto  dir  security                         authentication                  meshId  last dlv      uptime
-  =====================================================================================================================================================================================================================
-  1   ::1:52680            IEJjI-PlC3hr_fYLS0d5l3fFqJSixhdkIEe3xbPMgl3575xIulYL9w  normal             amqp   in   no-security                      no-auth                                 000:00:00:20  000:00:29:18
-  3   10.85.0.1:37362      TuZyWP3pGBzE27IvhBeFx4JOnxg_kMKv_RKrEfh9XXTqKsul-wTbMg  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:26:30  000:00:29:17
-  5   10.85.0.1:43252      DmA1P4VKJ-F3wuHnN8OhQzR4bOxT9ktDkPFNA7AkdNVKrCKXxo-Acg  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:03  000:00:29:17
-  4   10.85.0.1:9066       HSaOeXh7Aebq1vVkbfDALTulefrgLOYxzvO_jQha7dyo7o2tnS4Euw  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:03  000:00:29:17
-  2   10.85.0.1:41556      FlJpii_FWwMc7_N9Y29cS-3WVG1CQpim2Wb4admws1QCn_eEDedzIw  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:28:46  000:00:29:17
-  7   10.85.0.1:17535      Dnz5r0Gt8SjFJ_MXPu7UE5YBr3znnW4wWh_4UrI30dZPdLwtuFfPAA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:03  000:00:29:17
-  6   10.85.0.1:17855      ifR8LTAYI45C7fxEsvciXhVixPheI3_Z8K87AEU7Z-ZpzKtPvjfZDA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:02  000:00:29:17
-  8   10.85.0.1:36643      FniGeW7s1SUDvtiFkLmz3PZejqPG9os8pWeElXl_AjI6jahpXsc25Q  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:29:07  000:00:29:14
-  9   10.85.0.1:45951      q8JSRNQzQZTTNI7v66k4r5JkbZvZHK1grzNQEgt2hS5mX35nRiX3EQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:26:30  000:00:29:14
-  10  10.85.0.1:44616      TmjNjrgJlA0z4fsGL9p6MMDduopViShPZ95Qiycu8dtz1dR3EVczgA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:03  000:00:29:13
-  12  10.85.0.1:11268      M7FxzENkxTnMz2KKJinoSBxgvetdkTerzRZR5kdeuIsa0kbdML0YFA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:29:03  000:00:29:13
-  11  10.85.0.1:8011       bfv-RFNnH4jaJElXstblyvjeZlx_0Vtw6M9A-xxjyF_BeSrIQ4zeOA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:03  000:00:29:13
-  16  ::1:50450            cisMRsaxPafS8adOV7azqaEqfQsd4dS7maJKlu8FxMFRPIq38UJRPw  normal             amqp   in   no-security                      no-auth                                 000:00:29:09  000:00:29:09
-  18  10.96.178.101:55671  west-skupper-router-79664f4686-qbmnx                    inter-router-data  amqp   out  TLSv1.3(TLS_AES_256_GCM_SHA384)  x.509                                   000:00:12:46  000:00:29:09
-  17  10.96.178.101:55671  west-skupper-router-79664f4686-qbmnx                    inter-router-data  amqp   out  TLSv1.3(TLS_AES_256_GCM_SHA384)  x.509                                   000:00:12:46  000:00:29:09
-  19  10.96.178.101:55671  west-skupper-router-79664f4686-qbmnx                    inter-router       amqp   out  TLSv1.3(TLS_AES_256_GCM_SHA384)  x.509                                   000:00:00:01  000:00:29:09
-  21  10.85.0.1:26373      -QTrHLbbk0J0eUh4O3yJf8IHOFUwbRgHpGdYSTFU-woiAjrEMoR8xQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:28:53  000:00:29:05
-  22  10.85.0.1:53293      CEWiprBREC5hj2kzXIUumsPGaGghR1N_MtDbQatNZq9rdm37Mphdhg  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:02  000:00:29:05
-  23  10.85.0.1:4317       RwE8vftAtSnCJJEKMfo0X4v982rmmRnI7iOLFh6ewOHAwFTGNkOOkQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:01  000:00:28:58
-  24  10.85.0.1:33815      fK5jyF1-rG1-rqV4VUxiCDNTR8zzI0Jp46X5zk07S_bDTwlPoOaCCw  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:28:53  000:00:28:58
-  26  10.85.0.1:23616      u3geQdtTXHi2Q7dwppNs9ssHyTeWJuPdbPEQKpwVxspBWk30LruFHQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:12  000:00:28:56
-  25  10.85.0.1:40112      WOJPeQY0kDqluGcQqV1tVSSvEzqi5jQ7eygsQRWpEIWGWzZtYWqlIA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:28:33  000:00:28:56
-  27  egress-dispatch      TcpAdaptor                                              normal             tcp    out  no-security                      no-auth                                 000:00:12:46  000:00:28:46
-  28  egress-dispatch      TcpAdaptor                                              normal             tcp    out  no-security                      no-auth                                 000:00:12:46  000:00:28:46
-  29  egress-dispatch      TcpAdaptor                                              normal             tcp    out  no-security                      no-auth                                 000:00:12:46  000:00:28:46
-  46  127.0.0.1:40944      ce04ec2e-cf1e-4070-9ae6-8e8ced9045fb                    normal             amqp   in   no-security                      no-auth                                 000:00:00:00  000:00:00:00
+  id   host                 container                                               role               proto  dir  security                         authentication                  meshId  last dlv      uptime
+  ======================================================================================================================================================================================================================
+  1    ::1:52680            IEJjI-PlC3hr_fYLS0d5l3fFqJSixhdkIEe3xbPMgl3575xIulYL9w  normal             amqp   in   no-security                      no-auth                                 000:00:00:15  000:04:07:07
+  3    10.85.0.1:37362      TuZyWP3pGBzE27IvhBeFx4JOnxg_kMKv_RKrEfh9XXTqKsul-wTbMg  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:04:19  000:04:07:06
+  5    10.85.0.1:43252      DmA1P4VKJ-F3wuHnN8OhQzR4bOxT9ktDkPFNA7AkdNVKrCKXxo-Acg  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:13  000:04:07:06
+  4    10.85.0.1:9066       HSaOeXh7Aebq1vVkbfDALTulefrgLOYxzvO_jQha7dyo7o2tnS4Euw  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:13  000:04:07:06
+  2    10.85.0.1:41556      FlJpii_FWwMc7_N9Y29cS-3WVG1CQpim2Wb4admws1QCn_eEDedzIw  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:35  000:04:07:06
+  7    10.85.0.1:17535      Dnz5r0Gt8SjFJ_MXPu7UE5YBr3znnW4wWh_4UrI30dZPdLwtuFfPAA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:03  000:04:07:06
+  6    10.85.0.1:17855      ifR8LTAYI45C7fxEsvciXhVixPheI3_Z8K87AEU7Z-ZpzKtPvjfZDA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:01  000:04:07:06
+  8    10.85.0.1:36643      FniGeW7s1SUDvtiFkLmz3PZejqPG9os8pWeElXl_AjI6jahpXsc25Q  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:56  000:04:07:03
+  9    10.85.0.1:45951      q8JSRNQzQZTTNI7v66k4r5JkbZvZHK1grzNQEgt2hS5mX35nRiX3EQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:04:19  000:04:07:03
+  10   10.85.0.1:44616      TmjNjrgJlA0z4fsGL9p6MMDduopViShPZ95Qiycu8dtz1dR3EVczgA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:02  000:04:07:02
+  12   10.85.0.1:11268      M7FxzENkxTnMz2KKJinoSBxgvetdkTerzRZR5kdeuIsa0kbdML0YFA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:52  000:04:07:02
+  11   10.85.0.1:8011       bfv-RFNnH4jaJElXstblyvjeZlx_0Vtw6M9A-xxjyF_BeSrIQ4zeOA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:13  000:04:07:02
+  16   ::1:50450            cisMRsaxPafS8adOV7azqaEqfQsd4dS7maJKlu8FxMFRPIq38UJRPw  normal             amqp   in   no-security                      no-auth                                 000:04:06:58  000:04:06:58
+  18   10.96.178.101:55671  west-skupper-router-79664f4686-qbmnx                    inter-router-data  amqp   out  TLSv1.3(TLS_AES_256_GCM_SHA384)  x.509                                   000:00:38:46  000:04:06:58
+  17   10.96.178.101:55671  west-skupper-router-79664f4686-qbmnx                    inter-router-data  amqp   out  TLSv1.3(TLS_AES_256_GCM_SHA384)  x.509                                   000:00:38:46  000:04:06:58
+  19   10.96.178.101:55671  west-skupper-router-79664f4686-qbmnx                    inter-router       amqp   out  TLSv1.3(TLS_AES_256_GCM_SHA384)  x.509                                   000:00:00:00  000:04:06:58
+  21   10.85.0.1:26373      -QTrHLbbk0J0eUh4O3yJf8IHOFUwbRgHpGdYSTFU-woiAjrEMoR8xQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:42  000:04:06:54
+  22   10.85.0.1:53293      CEWiprBREC5hj2kzXIUumsPGaGghR1N_MtDbQatNZq9rdm37Mphdhg  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:02  000:04:06:54
+  23   10.85.0.1:4317       RwE8vftAtSnCJJEKMfo0X4v982rmmRnI7iOLFh6ewOHAwFTGNkOOkQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:00  000:04:06:47
+  24   10.85.0.1:33815      fK5jyF1-rG1-rqV4VUxiCDNTR8zzI0Jp46X5zk07S_bDTwlPoOaCCw  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:42  000:04:06:47
+  26   10.85.0.1:23616      u3geQdtTXHi2Q7dwppNs9ssHyTeWJuPdbPEQKpwVxspBWk30LruFHQ  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:00:00:06  000:04:06:45
+  25   10.85.0.1:40112      WOJPeQY0kDqluGcQqV1tVSSvEzqi5jQ7eygsQRWpEIWGWzZtYWqlIA  normal             amqp   in   TLSv1.3(TLS_AES_128_GCM_SHA256)  CN=skupper-router-local(x.509)          000:04:06:22  000:04:06:45
+  27   egress-dispatch      TcpAdaptor                                              normal             tcp    out  no-security                      no-auth                                 000:00:38:46  000:04:06:35
+  28   egress-dispatch      TcpAdaptor                                              normal             tcp    out  no-security                      no-auth                                 000:00:38:47  000:04:06:35
+  29   egress-dispatch      TcpAdaptor                                              normal             tcp    out  no-security                      no-auth                                 000:00:38:47  000:04:06:35
+  107  127.0.0.1:57548      7bae5be6-defb-43a5-bb48-54f669c12ddf                    normal             amqp   in   no-security                      no-auth                                 000:00:00:00  000:00:00:00

@@ -1,4 +1,4 @@
-2023-01-11 11:18:16.767304 UTC
+2023-01-11 14:56:11.703809 UTC
 east-skupper-router-6c8866fc67-nc448
 
 Policy Configuration
@@ -14,7 +14,7 @@ Policy Configuration
 Policy Status
   attr                         value
   ====================================
-  Connections Processed        31
+  Connections Processed        61
   Connections Denied           0
   Connections Current          20
   Links Denied                 0
