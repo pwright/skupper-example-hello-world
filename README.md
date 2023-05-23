@@ -259,12 +259,13 @@ creation.
 ## Step 8: Deploy the frontend and backend services
 
 Use `kubectl create deployment` to deploy the frontend service
-in `west` and the backend service in `east`.
+in `west` and the backend service in both namespaces.
 
 _**Console for west:**_
 
 ~~~ shell
 kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
+kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
 ~~~
 
 _Sample output:_
@@ -272,6 +273,9 @@ _Sample output:_
 ~~~ console
 $ kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
 deployment.apps/frontend created
+
+$ kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
+deployment.apps/backend created
 ~~~
 
 _**Console for east:**_
@@ -307,14 +311,31 @@ frontend service.
 _**Console for east:**_
 
 ~~~ shell
-skupper expose deployment/backend --port 8080
+skupper service create backend 8080
+skupper service bind backend deployment backend
 ~~~
 
 _Sample output:_
 
 ~~~ console
-$ skupper expose deployment/backend --port 8080
-deployment backend exposed as backend
+$ skupper service create backend 8080
+service created
+
+$ skupper service bind backend deployment backend
+service bound
+~~~
+
+_**Console for west:**_
+
+~~~ shell
+skupper service bind backend deployment backend
+~~~
+
+_Sample output:_
+
+~~~ console
+$ skupper service bind backend deployment backend
+service bound
 ~~~
 
 ## Step 10: Expose the frontend service
