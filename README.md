@@ -265,7 +265,7 @@ _**Console for west:**_
 
 ~~~ shell
 kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
-kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
+kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
 ~~~
 
 _Sample output:_
@@ -274,20 +274,20 @@ _Sample output:_
 $ kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
 deployment.apps/frontend created
 
-$ kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
+$ kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
 deployment.apps/backend created
 ~~~
 
 _**Console for east:**_
 
 ~~~ shell
-kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
+kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
 ~~~
 
 _Sample output:_
 
 ~~~ console
-$ kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
+$ kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
 deployment.apps/backend created
 ~~~
 
@@ -311,14 +311,14 @@ frontend service.
 _**Console for east:**_
 
 ~~~ shell
-skupper service create backend 8080
+skupper service create backend 8080 --protocol http
 skupper service bind backend deployment backend
 ~~~
 
 _Sample output:_
 
 ~~~ console
-$ skupper service create backend 8080
+$ skupper service create backend 8080 --protocol http
 service created
 
 $ skupper service bind backend deployment backend
