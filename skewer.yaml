@@ -26,6 +26,9 @@ sites:
   east:
     kubeconfig: ~/.kube/config-east
     namespace: east
+  east2:
+    kubeconfig: ~/.kube/config-east2
+    namespace: east2
 steps:
   - standard: install_the_skupper_command_line_tool
   - standard: configure_separate_console_sessions
@@ -34,6 +37,17 @@ steps:
   - standard: install_skupper_in_your_namespaces
   - standard: check_the_status_of_your_namespaces
   - standard: link_your_namespaces
+  - title: Link east2
+    preamble: |
+      Use `skupper token create` 
+      in `west` and `skupper link create` in `east2`.
+    commands:
+      west:
+        - run: skupper token create /tmp/hw.yaml
+          output: token created
+      east2:
+        - run: skupper link create /tmp/hw.yaml
+          output: link created
   - title: Deploy the frontend and backend services
     preamble: |
       Use `kubectl create deployment` to deploy the frontend service
@@ -42,9 +56,10 @@ steps:
       west:
         - run: kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
           output: deployment.apps/frontend created
+      east:
         - run: kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
           output: deployment.apps/backend created
-      east:
+      east2:
         - run: kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
           output: deployment.apps/backend created
   - title: Expose the backend service
@@ -64,17 +79,17 @@ steps:
       Use `skupper expose` to expose the backend service to the
       frontend service.
     commands:
+      west:
+        - run: skupper service create backend 8080 --protocol tcp
+          output: service created
       east:
         - await: deployment/backend
-        - run: skupper service create backend 8080 --protocol http
-          output: service created
         - run: skupper service bind backend deployment backend
           output: service bound
-      west:
+      east2:
         - await: deployment/backend
         - run: skupper service bind backend deployment backend
           output: service bound
-
   - title: Expose the frontend service
     preamble: |
       We have established connectivity between the two namespaces and
@@ -100,6 +115,10 @@ steps:
       east:
         - run: skupper delete
         - run: kubectl delete deployment/backend
+      east2:
+        - run: skupper delete
+        - run: kubectl delete deployment/backend
+
 summary: |
   This example locates the frontend and backend services in different
   namespaces, on different clusters.  Ordinarily, this means that they

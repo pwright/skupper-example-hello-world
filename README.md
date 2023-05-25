@@ -117,6 +117,12 @@ _**Console for east:**_
 export KUBECONFIG=~/.kube/config-east
 ~~~
 
+_**Console for east2:**_
+
+~~~ shell
+export KUBECONFIG=~/.kube/config-east2
+~~~
+
 ## Step 3: Access your clusters
 
 The procedure for accessing a Kubernetes cluster varies by
@@ -146,6 +152,13 @@ kubectl create namespace east
 kubectl config set-context --current --namespace east
 ~~~
 
+_**Console for east2:**_
+
+~~~ shell
+kubectl create namespace east2
+kubectl config set-context --current --namespace east2
+~~~
+
 ## Step 5: Install Skupper in your namespaces
 
 The `skupper init` command installs the Skupper router and service
@@ -164,6 +177,12 @@ skupper init --enable-console --enable-flow-collector
 ~~~
 
 _**Console for east:**_
+
+~~~ shell
+skupper init
+~~~
+
+_**Console for east2:**_
 
 ~~~ shell
 skupper init
@@ -189,6 +208,12 @@ skupper status
 ~~~
 
 _**Console for east:**_
+
+~~~ shell
+skupper status
+~~~
+
+_**Console for east2:**_
 
 ~~~ shell
 skupper status
@@ -265,7 +290,6 @@ _**Console for west:**_
 
 ~~~ shell
 kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
-kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
 ~~~
 
 _Sample output:_
@@ -273,12 +297,22 @@ _Sample output:_
 ~~~ console
 $ kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
 deployment.apps/frontend created
+~~~
 
+_**Console for east:**_
+
+~~~ shell
+kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
+~~~
+
+_Sample output:_
+
+~~~ console
 $ kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
 deployment.apps/backend created
 ~~~
 
-_**Console for east:**_
+_**Console for east2:**_
 
 ~~~ shell
 kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 1
@@ -308,11 +342,10 @@ documentation.
 Use `skupper expose` to expose the backend service to the
 frontend service.
 
-_**Console for east:**_
+_**Console for west:**_
 
 ~~~ shell
 skupper service create backend 8080 --protocol http
-skupper service bind backend deployment backend
 ~~~
 
 _Sample output:_
@@ -320,12 +353,22 @@ _Sample output:_
 ~~~ console
 $ skupper service create backend 8080 --protocol http
 service created
+~~~
 
+_**Console for east:**_
+
+~~~ shell
+skupper service bind backend deployment backend
+~~~
+
+_Sample output:_
+
+~~~ console
 $ skupper service bind backend deployment backend
 service bound
 ~~~
 
-_**Console for west:**_
+_**Console for east2:**_
 
 ~~~ shell
 skupper service bind backend deployment backend
@@ -440,6 +483,13 @@ kubectl delete deployment/frontend
 ~~~
 
 _**Console for east:**_
+
+~~~ shell
+skupper delete
+kubectl delete deployment/backend
+~~~
+
+_**Console for east2:**_
 
 ~~~ shell
 skupper delete
