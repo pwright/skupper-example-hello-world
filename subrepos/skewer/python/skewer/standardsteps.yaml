@@ -96,9 +96,9 @@ install_skupper_in_your_namespaces:
     [minikube-tunnel]: https://skupper.io/start/minikube.html#running-minikube-tunnel
   commands:
     "0":
-      - run: skupper init --enable-console --enable-flow-collector
+      - run: skupper init --enable-console --enable-flow-collector --console-auth unsecured --enable-cluster-permissions
     "*":
-      - run: skupper init
+      - run: skupper init --enable-cluster-permissions
   postamble: |
     _Sample output:_
 
@@ -213,7 +213,7 @@ accessing_the_web_console:
         apply: readme
         output: <password>
       - await_external_ip: service/skupper
-      - run: curl --fail --insecure --verbose --retry 60 --retry-connrefused --retry-delay 2 $(kubectl get service/skupper -o jsonpath='https://{.status.loadBalancer.ingress[0].ip}:8080/') --user admin:$(kubectl get secret/skupper-console-users -o jsonpath={.data.admin} | base64 -d); echo
+      - run: curl --fail --insecure --verbose --retry 60 --retry-connrefused --retry-delay 2 $(kubectl get service/skupper -o jsonpath='https://{.status.loadBalancer.ingress[0].ip}:8080/'); echo
         apply: test
   postamble: |
     Navigate to `<console-url>` in your browser.  When prompted, log

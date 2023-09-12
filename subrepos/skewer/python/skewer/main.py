@@ -187,8 +187,8 @@ def _pause_for_demo(work_dir, skewer_data):
     with working_env(KUBECONFIG=first_site_kubeconfig):
         console_ip = await_external_ip("service", "skupper")
         console_url = f"https://{console_ip}:8080/"
-        password_data = call("kubectl get secret skupper-console-users -o jsonpath='{.data.admin}'")
-        password = base64_decode(password_data).decode("ascii")
+        # password_data = call("kubectl get secret skupper-console-users -o jsonpath='{.data.admin}'")
+        # password = base64_decode(password_data).decode("ascii")
 
         if run("kubectl get service/frontend", check=False, output=DEVNULL).exit_code == 0:
             if call("kubectl get service/frontend -o jsonpath='{.spec.type}'") == "LoadBalancer":
@@ -211,7 +211,7 @@ def _pause_for_demo(work_dir, skewer_data):
     print()
     print(f"Console URL:      {console_url}")
     print( "Console user:     admin")
-    print(f"Console password: {password}")
+    # print(f"Console password: {password}")
     print()
 
     if "SKEWER_DEMO_NO_WAIT" not in ENV:
