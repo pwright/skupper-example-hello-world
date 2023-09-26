@@ -5,17 +5,32 @@ import yaml
 import os
 
 def write_to_markdown(log_data):
-    #identity_modified = log_data['identity'].replace(':', '___')
-    yaml_header = yaml.dump(log_data, default_flow_style=False)
-    markdown_content = "\n".join([f"**{key}**: [[{value}]]" for key, value in log_data.items()])
+    directory = ".coverage"
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-    file_name = f"{log_data['identity']}.md"
+    yaml_header = yaml.dump(log_data, default_flow_style=False)
+
+    markdown_content = []
+    for key, value in log_data.items():
+        if key == "recType" or key == "protocol":
+            markdown_line = f"**{key}**: [[{value}]]"
+        elif ":" in str(value):
+            before_colon, after_colon = str(value).split(":", 1)
+            markdown_line = f"**{key}**: [[{before_colon}]]:{after_colon}"
+        else:
+            markdown_line = f"**{key}**: {value}"
+        
+        markdown_content.append(markdown_line)
+
+    markdown_content = "\n".join(markdown_content)
+
+    file_name = os.path.join(directory, f"{log_data['identity']}.md")
     with open(file_name, 'w') as f:
         f.write("---\n")
         f.write(yaml_header)
         f.write("---\n")
         f.write(markdown_content)
-
 
 def process_line(line, rec_type):
     if "FLOW_LOG" in line:
@@ -27,6 +42,14 @@ def process_line(line, rec_type):
         else:
             print(f"Storing log: {log_data}")
             write_to_markdown(log_data)
+    else:
+        capital_word_match = re.search(r'\b[A-Z]+\b', line)
+        if capital_word_match:
+            capital_word = capital_word_match.group(0)
+            file_name = os.path.join(".coverage", f"{capital_word}.txt")
+            with open(file_name, 'a') as f:
+                f.write(line)
+
 
 def read_from_stream(pod_name, rec_type):
     command = ['kubectl', 'logs', '-f', '-c', 'flow-collector', pod_name]
