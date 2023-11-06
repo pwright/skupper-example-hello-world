@@ -1,0 +1,34 @@
+---
+counterFlow: 4c82k:32
+endTime: 1695726462473100
+identity: 8ghmm:29
+latency: 832
+octets: 279
+octetsUnacked: 77
+parent: 8ghmm:2
+place: 1
+process: e69f9174-397c-47e1-983b-f3fb810524e1
+processName: site-clients-c3c4e40e
+protocol: tcp
+recType: FLOW
+sourceHost: 10.85.0.1
+sourcePort: '22363'
+startTime: 1695726462465620
+windowSize: 1459620
+---
+**recType**: [[FLOW]]
+**identity**: [[8ghmm:29]]
+**parent**: [[8ghmm:2]]
+**startTime**: 1695726462465620
+**endTime**: 1695726462473100
+**sourceHost**: 10.85.0.1
+**sourcePort**: 22363
+**counterFlow**: 4c82k:32
+**latency**: 832
+**octets**: 279
+**octetsUnacked**: 77
+**windowSize**: 1459620
+**process**: e69f9174-397c-47e1-983b-f3fb810524e1
+**processName**: site-clients-c3c4e40e
+**protocol**: [[tcp]]
+**place**: 1

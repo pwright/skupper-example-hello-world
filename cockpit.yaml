@@ -1,0 +1,20 @@
+name: cockpit
+qdr-listeners:
+    - name: amqp
+      host: localhost
+      port: 5672
+bindings:
+    - name: cockpit:9090
+      host: localhost
+      service:
+        address: cockpit:9090
+        protocol: tcp
+        ports:
+            - 9090
+        exposeIngress: ""
+        tlscredentials: ""
+        tlscertauthority: ""
+        publishnotreadyaddresses: false
+        bridgeimage: ""
+      target_ports:
+        - 9090
