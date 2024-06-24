@@ -67,7 +67,7 @@ general/link_your_sites:
       - run: skupper token create ~/secret.token
         output: Token written to ~/secret.token
     "1":
-      - run: skupper link create ~/secret.token
+      - run: skupper link create ~/secret.token --cost 50
         output: |
           Site configured to link to <endpoint> (name=link1)
           Check the status of the link using 'skupper link status'.
@@ -171,7 +171,8 @@ kubernetes/create_your_sites:
     [minikube-tunnel]: https://skupper.io/start/minikube.html#running-minikube-tunnel
   commands:
     "*":
-      - run: skupper init
+      - run: skupper init --enable-flow-collector --enable-console
+#      - run: skupper init
         output: |
           Waiting for LoadBalancer IP or hostname...
           Waiting for status...

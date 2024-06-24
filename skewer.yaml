@@ -38,6 +38,45 @@ steps:
   - standard: kubernetes/create_your_sites
   - standard: kubernetes/link_your_sites
   - standard: hello_world/expose_the_backend
+  - title: Deploy the frontend and backend
+    preamble: |
+      This example runs the frontend and the backend in separate
+      Kubernetes namespaces, on different clusters.
+
+      Use `kubectl create deployment` to deploy the http-server in both sites.
+    commands:
+      west:
+        - run: kubectl create deployment http-server --image quay.io/skupper/skupper-http-server
+          output: " "
+
+      east:
+        - run: kubectl create deployment http-server --image quay.io/skupper/skupper-http-server
+          output: " "
+
+  - title: Create a service with server targets on both sites
+    preamble: |
+      Use `skupper service create` to create a service.
+
+      Use `skupper service bind` to associate the service with servers on both sites.
+    commands:
+      west:
+        - await_resource: deployment/http-server
+        - run: skupper service create http-server 8080
+          output: " "
+        - run: skupper service bind http-server deployment http-server
+          output: " "
+      east:
+        - await_resource: deployment/http-server
+        - run: skupper service status
+          output: " "
+        - run: skupper service bind http-server deployment http-server
+          output: " "
+
+        - run: skupper service bind http-server deployment http-server
+          output: " "
+    postamble: |
+      A `http-server` service is not available.
+
   - standard: hello_world/access_the_frontend
   - standard: hello_world/cleaning_up
 summary: |
