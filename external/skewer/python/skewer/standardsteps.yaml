@@ -190,7 +190,7 @@ kubernetes/create_your_sites:
           Waiting for status...
           Site "@namespace@" is configured. Check the status to see when it is ready
       - run: |
-          kubectl wait --for condition=Ready site/@namespace@  # Required with preview 1 - to be removed!
+          kubectl wait --for condition=Ready site/@namespace@  --timeout=180s # Required with preview 1 - to be removed!
         output: |
           site.skupper.io/@namespace@ condition met
     "*":
@@ -199,7 +199,7 @@ kubernetes/create_your_sites:
           Waiting for status...
           Site "@namespace@" is configured. Check the status to see when it is ready
       - run: |
-          kubectl wait --for condition=Ready site/@namespace@  # Required with preview 1 - to be removed!
+          kubectl wait --for condition=Ready site/@namespace@  --timeout=180s # Required with preview 1 - to be removed!
         output: |
           site.skupper.io/@namespace@ condition met
   postamble: |
