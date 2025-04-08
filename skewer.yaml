@@ -25,12 +25,18 @@ sites:
     namespace: west
     env:
       KUBECONFIG: ~/.kube/config-west
-  east:
-    title: East
+  east1:
+    title: East1
     platform: kubernetes
-    namespace: east
+    namespace: east1
     env:
-      KUBECONFIG: ~/.kube/config-east
+      KUBECONFIG: ~/.kube/config-east1
+  east2:
+    title: East2
+    platform: kubernetes
+    namespace: east2
+    env:
+      KUBECONFIG: ~/.kube/config-east2
 steps:
   - standard: platform/access_your_kubernetes_clusters
   - standard: platform/create_your_kubernetes_namespaces
