@@ -4,38 +4,53 @@ const html = `
 <body>
   <header>
     <div>
-      <div>
+      <div style="display: flex; align-items: center; gap: 0.5em;">
         <span class="material-icons-outlined">emoji_people</span>
-        Skupper Hello World
+        <h1 style="margin: 0;">Skupper Hello World</h1>
       </div>
     </div>
   </header>
+
   <section>
     <div>
-      <div>Your name is <span id="name" class="name"></span>.</div>
+      <div style="margin-bottom: 1em;">
+        Your name is <span id="name" class="name"></span>.
+      </div>
+          <div style="display: flex; gap: 1em;">
+            <button type="button" id="stop-button" disabled>Stop</button>
+          </div>
 
       <form id="request-form" style="margin-bottom: 2em;">
-        <div class="form-field">
+        <div class="form-field" style="
+          display: grid;
+          grid-template-columns: max-content 6em;
+          gap: 0.5em 1.5em;
+          align-items: center;
+        ">
           <label for="requests-per-batch">Requests per Batch:</label>
-          <input type="number" id="requests-per-batch" name="requests-per-batch" value="3" min="1" max="100" style="width: 5em; margin-right: 1em;">
+          <input type="number" id="requests-per-batch" name="requests-per-batch" value="3" min="1" max="100">
 
           <label for="request-interval">Interval (s):</label>
-          <input type="number" id="request-interval" name="request-interval" value="4" min="1" max="60" style="width: 5em; margin-right: 1em;">
+          <input type="number" id="request-interval" name="request-interval" value="4" min="1" max="60">
 
           <label for="number-of-batches">Number of Batches:</label>
-          <input type="number" id="number-of-batches" name="number-of-batches" value="7" min="1" max="100" style="width: 4em; margin-right: 1em;">
+          <input type="number" id="number-of-batches" name="number-of-batches" value="7" min="1" max="100">
 
-          <button type="button" id="start-button">Start</button>
-          <button type="button" id="stop-button" disabled>Stop</button>
+          <!-- Vertically aligned buttons -->
+          <label>&nbsp;</label> <!-- acts as spacer for vertical alignment -->
+          <div style="display: flex; gap: 1em;">
+            <button type="button" id="start-button">Start</button>
+           </div>
         </div>
       </form>
 
       <div id="hello-table"></div>
     </div>
   </section>
-  <footer>
-  </footer>
+
+  <footer></footer>
 </body>
+
 `;
 
 function renderRequest(value, record, context) {
