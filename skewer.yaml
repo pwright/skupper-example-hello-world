@@ -47,6 +47,12 @@ steps:
   - standard: skupper/link_your_sites/kubernetes_cli
   - standard: hello_world/expose_the_backend_service/kubernetes_cli
   - standard: hello_world/access_the_frontend_service/kubernetes_cli
+  - title: Start the Console
+    preamble: |
+      This applies the Network observer and enables the console.
+    commands:
+      west:
+        - run: helm install skupper-network-observer oci://quay.io/skupper/helm/network-observer --version 2.0.0
   - standard: hello_world/cleaning_up/kubernetes_cli
 summary: |
   This example locates the frontend and backend services in different
