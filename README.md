@@ -1,10 +1,10 @@
 <!-- NOTE: This file is generated from skewer.yaml.  Do not edit it directly. -->
 
-# Skupper Hello World
+# iPerf
 
-[![main](https://github.com/skupperproject/skupper-example-hello-world/actions/workflows/main.yaml/badge.svg)](https://github.com/skupperproject/skupper-example-hello-world/actions/workflows/main.yaml)
+[![main](https://github.com/pwright/skupper-example-hello-world/actions/workflows/main.yaml/badge.svg)](https://github.com/pwright/skupper-example-hello-world/actions/workflows/main.yaml)
 
-#### A minimal HTTP application deployed across Kubernetes clusters using Skupper
+#### Perform real-time network throughput measurements while using iPerf3
 
 This example is part of a [suite of examples][examples] showing the
 different ways you can use [Skupper][website] to connect services
@@ -19,48 +19,35 @@ across cloud providers, data centers, and edge sites.
 * [Prerequisites](#prerequisites)
 * [Step 1: Access your Kubernetes clusters](#step-1-access-your-kubernetes-clusters)
 * [Step 2: Create your Kubernetes namespaces](#step-2-create-your-kubernetes-namespaces)
-* [Step 3: Deploy the frontend and backend](#step-3-deploy-the-frontend-and-backend)
-* [Step 4: Install Skupper on your Kubernetes clusters](#step-4-install-skupper-on-your-kubernetes-clusters)
-* [Step 5: Install the Skupper command-line tool](#step-5-install-the-skupper-command-line-tool)
-* [Step 6: Create your sites](#step-6-create-your-sites)
-* [Step 7: Link your sites](#step-7-link-your-sites)
-* [Step 8: Expose the backend service](#step-8-expose-the-backend-service)
-* [Step 9: Access the frontend service](#step-9-access-the-frontend-service)
+* [Step 3: Install Skupper on your Kubernetes clusters](#step-3-install-skupper-on-your-kubernetes-clusters)
+* [Step 4: Install the Skupper command-line tool](#step-4-install-the-skupper-command-line-tool)
+* [Step 5: Create your sites](#step-5-create-your-sites)
+* [Step 6: Link your sites](#step-6-link-your-sites)
+* [Step 7: Deploy the iperf3 servers](#step-7-deploy-the-iperf3-servers)
+* [Step 8: Expose iperf3 from each namespace](#step-8-expose-iperf3-from-each-namespace)
+* [Step 9: Run benchmark tests across the clusters](#step-9-run-benchmark-tests-across-the-clusters)
 * [Cleaning up](#cleaning-up)
-* [Summary](#summary)
 * [Next steps](#next-steps)
 * [About this example](#about-this-example)
 
 ## Overview
 
-This example is a very simple multi-service HTTP application
-deployed across Kubernetes clusters using Skupper.
-
-It contains two services:
-
-* A backend service that exposes an `/api/hello` endpoint.  It
-  returns greetings of the form `Hi, <your-name>.  I am <my-name>
-  (<pod-name>)`.
-
-* A frontend service that sends greetings to the backend and
-  fetches new greetings in response.
-
-With Skupper, you can place the backend in one cluster and the
-frontend in another and maintain connectivity between the two
-services without exposing the backend to the public internet.
-
-<img src="images/entities.svg" width="640"/>
+This tutorial demonstrates how to perform real-time network throughput measurements across Kubernetes 
+using the iperf3 tool.
+In this tutorial you:
+* deploy iperf3 in three separate clusters
+* run iperf3 client test instances
 
 ## Prerequisites
 
-* Access to at least one Kubernetes cluster, from [any provider you
-  choose][kube-providers].
-
 * The `kubectl` command-line tool, version 1.15 or later
-  ([installation guide][install-kubectl]).
+([installation guide][install-kubectl])
 
-[kube-providers]: https://skupper.io/start/kubernetes.html
-[install-kubectl]: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+* Access to three clusters to observe performance. 
+As an example, the three clusters might consist of:
+
+* A private cloud cluster running on your local machine (**private1**)
+* Two public cloud clusters running in public cloud providers (**public1** and **public2**)
 
 ## Step 1: Access your Kubernetes clusters
 
@@ -79,17 +66,24 @@ For each cluster, open a new terminal window.  In each terminal,
 set the `KUBECONFIG` environment variable to a different path and
 log in to your cluster.
 
-_**West:**_
+_**Public1:**_
 
 ~~~ shell
-export KUBECONFIG=~/.kube/config-west
+export KUBECONFIG=~/.kube/config-public1
 <provider-specific login command>
 ~~~
 
-_**East:**_
+_**Public2:**_
 
 ~~~ shell
-export KUBECONFIG=~/.kube/config-east
+export KUBECONFIG=~/.kube/config-public2
+<provider-specific login command>
+~~~
+
+_**Private1:**_
+
+~~~ shell
+export KUBECONFIG=~/.kube/config-private1
 <provider-specific login command>
 ~~~
 
@@ -105,41 +99,28 @@ For each cluster, use `kubectl create namespace` and `kubectl
 config set-context` to create the namespace you wish to use and
 set the namespace on your current context.
 
-_**West:**_
+_**Public1:**_
 
 ~~~ shell
-kubectl create namespace west
-kubectl config set-context --current --namespace west
+kubectl create namespace public1
+kubectl config set-context --current --namespace public1
 ~~~
 
-_**East:**_
+_**Public2:**_
 
 ~~~ shell
-kubectl create namespace east
-kubectl config set-context --current --namespace east
+kubectl create namespace public2
+kubectl config set-context --current --namespace public2
 ~~~
 
-## Step 3: Deploy the frontend and backend
-
-Deploy the Hello World components, placing the frontend on one
-cluster and the backend on the other.
-
-Use `kubectl create deployment` to deploy the frontend in West
-and the backend in East.
-
-_**West:**_
+_**Private1:**_
 
 ~~~ shell
-kubectl create deployment frontend --image quay.io/skupper/hello-world-frontend
+kubectl create namespace private1
+kubectl config set-context --current --namespace private1
 ~~~
 
-_**East:**_
-
-~~~ shell
-kubectl create deployment backend --image quay.io/skupper/hello-world-backend --replicas 3
-~~~
-
-## Step 4: Install Skupper on your Kubernetes clusters
+## Step 3: Install Skupper on your Kubernetes clusters
 
 Using Skupper on Kubernetes requires the installation of the
 Skupper custom resource definitions (CRDs) and the Skupper
@@ -148,19 +129,25 @@ controller.
 For each cluster, use `kubectl apply` with the Skupper
 installation YAML to install the CRDs and controller.
 
-_**West:**_
+_**Public1:**_
 
 ~~~ shell
 kubectl apply -f https://skupper.io/v2/install.yaml
 ~~~
 
-_**East:**_
+_**Public2:**_
 
 ~~~ shell
 kubectl apply -f https://skupper.io/v2/install.yaml
 ~~~
 
-## Step 5: Install the Skupper command-line tool
+_**Private1:**_
+
+~~~ shell
+kubectl apply -f https://skupper.io/v2/install.yaml
+~~~
+
+## Step 4: Install the Skupper command-line tool
 
 This example uses the Skupper command-line tool to create Skupper
 resources.  You need to install the `skupper` command only once
@@ -182,7 +169,7 @@ Skupper][install-docs].
 [install-script]: https://github.com/skupperproject/skupper-website/blob/main/input/install.sh
 [install-docs]: https://skupper.io/install/
 
-## Step 6: Create your sites
+## Step 5: Create your sites
 
 A Skupper _site_ is a location where your application workloads
 are running.  Sites are linked together to form a network for your
@@ -199,38 +186,52 @@ tunnel][minikube-tunnel] before you run `skupper site create`.
 
 [minikube-tunnel]: https://skupper.io/start/minikube.html#running-minikube-tunnel
 
-_**West:**_
+_**Public1:**_
 
 ~~~ shell
-skupper site create west --enable-link-access
+skupper site create public1 --enable-link-access
 ~~~
 
 _Sample output:_
 
 ~~~ console
-$ skupper site create west --enable-link-access
+$ skupper site create public1 --enable-link-access
 Waiting for status...
-Site "west" is configured. Check the status to see when it is ready
+Site "public1" is configured. Check the status to see when it is ready
 ~~~
 
-_**East:**_
+_**Public2:**_
 
 ~~~ shell
-skupper site create east
+skupper site create public2 --enable-link-access
 ~~~
 
 _Sample output:_
 
 ~~~ console
-$ skupper site create east
+$ skupper site create public2 --enable-link-access
 Waiting for status...
-Site "east" is configured. Check the status to see when it is ready
+Site "public2" is configured. Check the status to see when it is ready
+~~~
+
+_**Private1:**_
+
+~~~ shell
+skupper site create private1 --enable-link-access
+~~~
+
+_Sample output:_
+
+~~~ console
+$ skupper site create private1 --enable-link-access
+Waiting for status...
+Site "private1" is configured. Check the status to see when it is ready
 ~~~
 
 You can use `skupper site status` at any time to check the status
 of your site.
 
-## Step 7: Link your sites
+## Step 6: Link your sites
 
 A Skupper _link_ is a channel for communication between two sites.
 Links serve as a transport for application connections and
@@ -247,45 +248,30 @@ to create the link.
 token can link to your site.  Make sure that only those you trust
 have access to it.
 
-First, use `skupper token issue` in West to generate the token.
-Then, use `skupper token redeem` in East to link the sites.
+First, use `skupper token issue` in Public1 to generate the token.
+Then, use `skupper token redeem` in Public2 to link the sites.
 
-_**West:**_
-
-~~~ shell
-skupper token issue ~/secret.token
-~~~
-
-_Sample output:_
-
-~~~ console
-$ skupper token issue ~/secret.token
-Waiting for token status ...
-
-Grant "west-cad4f72d-2917-49b9-ab66-cdaca4d6cf9c" is ready
-Token file /run/user/1000/skewer/secret.token created
-
-Transfer this file to a remote site. At the remote site,
-create a link to this site using the "skupper token redeem" command:
-
-	skupper token redeem <file>
-
-The token expires after 1 use(s) or after 15m0s.
-~~~
-
-_**East:**_
+_**Public1:**_
 
 ~~~ shell
-skupper token redeem ~/secret.token
+skupper token issue ~/private1-to-public1.token
+skupper token issue ~/public2-to-public1.token
 ~~~
 
-_Sample output:_
+_**Public2:**_
 
-~~~ console
-$ skupper token redeem ~/secret.token
-Waiting for token status ...
-Token "west-cad4f72d-2917-49b9-ab66-cdaca4d6cf9c" has been redeemed
-You can now safely delete /run/user/1000/skewer/secret.token
+~~~ shell
+skupper token issue ~/private1-to-public2.token
+skupper token redeem ~/public2-to-public1.token
+skupper link status --wait 60
+~~~
+
+_**Private1:**_
+
+~~~ shell
+skupper token redeem ~/private1-to-public1.token
+skupper token redeem ~/private1-to-public2.token
+skupper link status --wait 60
 ~~~
 
 If your terminal sessions are on different machines, you may need
@@ -293,116 +279,110 @@ to use `scp` or a similar tool to transfer the token securely.  By
 default, tokens expire after a single use or 15 minutes after
 being issued.
 
-## Step 8: Expose the backend service
+## Step 7: Deploy the iperf3 servers
 
-We now have our sites linked to form a Skupper network, but no
-services are exposed on it.
+After creating the application router network, deploy `iperf3` in each namespace.
 
-Skupper uses _listeners_ and _connectors_ to expose services
-across sites inside a Skupper network.  A listener is a local
-endpoint for client connections, configured with a routing key.  A
-connector exists in a remote site and binds a routing key to a
-particular set of servers.  Skupper routers forward client
-connections from local listeners to remote connectors with
-matching routing keys.
-
-In West, use the `skupper listener create` command to create a
-listener for the backend.  In East, use the `skupper connector
-create` command to create a matching connector.
-
-_**West:**_
+_**Private1:**_
 
 ~~~ shell
-skupper listener create backend 8080
+kubectl apply -f deployment-iperf3-a.yaml
 ~~~
 
-_Sample output:_
-
-~~~ console
-$ skupper listener create backend 8080
-Waiting for create to complete...
-Listener "backend" is ready
-~~~
-
-_**East:**_
+_**Public1:**_
 
 ~~~ shell
-skupper connector create backend 8080
+kubectl apply -f deployment-iperf3-b.yaml
 ~~~
 
-_Sample output:_
-
-~~~ console
-$ skupper connector create backend 8080
-Waiting for create to complete...
-Connector "backend" is ready
-~~~
-
-The commands shown above use the name argument, `backend`, to also
-set the default routing key and pod selector.  You can use the
-`--routing-key` and `--selector` options to set specific values.
-
-<!-- You can also use `--workload` -- more convenient! -->
-
-## Step 9: Access the frontend service
-
-In order to use and test the application, we need external access
-to the frontend.
-
-Use `kubectl port-forward` to make the frontend available at
-`localhost:8080`.
-
-_**West:**_
+_**Public2:**_
 
 ~~~ shell
-kubectl port-forward deployment/frontend 8080:8080
+kubectl apply -f deployment-iperf3-c.yaml
 ~~~
 
-You can now access the web interface by navigating to
-[http://localhost:8080](http://localhost:8080) in your browser.
+## Step 8: Expose iperf3 from each namespace
+
+We have established connectivity between the namespaces and deployed `iperf3`.
+Before we can test performance, we need access to the `iperf3` from each namespace.
+
+_**Private1:**_
+
+~~~ shell
+skupper expose deployment/iperf3-server-a --port 5201
+~~~
+
+_**Public1:**_
+
+~~~ shell
+skupper expose deployment/iperf3-server-b --port 5201
+~~~
+
+_**Public2:**_
+
+~~~ shell
+skupper expose deployment/iperf3-server-c --port 5201
+~~~
+
+## Step 9: Run benchmark tests across the clusters
+
+After deploying the iperf3 servers into the private and public cloud clusters,
+the virtual application network enables communications even though they are 
+running in separate clusters.
+
+_**Private1:**_
+
+~~~ shell
+kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a
+kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b
+kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c
+~~~
+
+_**Public1:**_
+
+~~~ shell
+kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a
+kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b
+kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c
+~~~
+
+_**Public2:**_
+
+~~~ shell
+kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a
+kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b
+kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c
+~~~
 
 ## Cleaning up
 
 To remove Skupper and the other resources from this exercise, use
-the following commands:
+the following commands.
 
-_**West:**_
-
-~~~ shell
-skupper site delete --all
-kubectl delete deployment/frontend
-~~~
-
-_**East:**_
+_**Private1:**_
 
 ~~~ shell
-skupper site delete --all
-kubectl delete deployment/backend
+kubectl delete deployment iperf3-server-a
+skupper delete
 ~~~
 
-## Summary
+_**Public1:**_
 
-This example locates the frontend and backend services in different
-namespaces, on different clusters.  Ordinarily, this means that they
-have no way to communicate unless they are exposed to the public
-internet.
+~~~ shell
+kubectl delete deployment iperf3-server-b
+skupper delete
+~~~
 
-Introducing Skupper into each namespace allows us to create a virtual
-application network that can connect services in different clusters.
-Any service exposed on the application network is represented as a
-local service in all of the linked namespaces.
+_**Public2:**_
 
-The backend service is located in `east`, but the frontend service
-in `west` can "see" it as if it were local.  When the frontend
-sends a request to the backend, Skupper forwards the request to the
-namespace where the backend is running and routes the response back to
-the frontend.
-
-<img src="images/sequence.svg" width="640"/>
+~~~ shell
+kubectl delete deployment iperf3-server-c
+skupper delete
+~~~
 
 ## Next steps
 
-Check out the other [examples][examples] on the Skupper website.
+- [Find more examples](https://skupper.io/examples/)
 
 ## About this example
 

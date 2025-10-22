@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: iperf3-server-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      application: iperf3-server-a
+  template:
+    metadata:
+      labels:
+        application: iperf3-server-a
+    spec:
+      containers: 
+        - image: quay.io/skupper/simple-iperf
+          name: iperf3-server
+          command:
+            - iperf3
+            - "-s"
+          imagePullPolicy: IfNotPresent
