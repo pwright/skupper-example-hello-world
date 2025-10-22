@@ -24,8 +24,9 @@ across cloud providers, data centers, and edge sites.
 * [Step 5: Create your sites](#step-5-create-your-sites)
 * [Step 6: Link your sites](#step-6-link-your-sites)
 * [Step 7: Deploy the iperf3 servers](#step-7-deploy-the-iperf3-servers)
-* [Step 8: Expose iperf3 from each namespace](#step-8-expose-iperf3-from-each-namespace)
-* [Step 9: Run benchmark tests across the clusters](#step-9-run-benchmark-tests-across-the-clusters)
+* [Step 8: Create connectors for the iperf3 servers](#step-8-create-connectors-for-the-iperf3-servers)
+* [Step 9: Create listeners for the iperf3 services](#step-9-create-listeners-for-the-iperf3-services)
+* [Step 10: Run benchmark tests across the clusters](#step-10-run-benchmark-tests-across-the-clusters)
 * [Cleaning up](#cleaning-up)
 * [Next steps](#next-steps)
 * [About this example](#about-this-example)
@@ -263,7 +264,6 @@ _**Public2:**_
 ~~~ shell
 skupper token issue ~/private1-to-public2.token
 skupper token redeem ~/public2-to-public1.token
-skupper link status --wait 60
 ~~~
 
 _**Private1:**_
@@ -271,7 +271,6 @@ _**Private1:**_
 ~~~ shell
 skupper token redeem ~/private1-to-public1.token
 skupper token redeem ~/private1-to-public2.token
-skupper link status --wait 60
 ~~~
 
 If your terminal sessions are on different machines, you may need
@@ -301,30 +300,59 @@ _**Public2:**_
 kubectl apply -f deployment-iperf3-c.yaml
 ~~~
 
-## Step 8: Expose iperf3 from each namespace
+## Step 8: Create connectors for the iperf3 servers
 
-We have established connectivity between the namespaces and deployed `iperf3`.
-Before we can test performance, we need access to the `iperf3` from each namespace.
+With Skupper v2, connectors run in the namespace where the workload is deployed.
+Create a connector for each iperf3 server so the application network can reach the pods.
 
 _**Private1:**_
 
 ~~~ shell
-skupper expose deployment/iperf3-server-a --port 5201
+skupper connector create iperf3-server-a 5201
 ~~~
 
 _**Public1:**_
 
 ~~~ shell
-skupper expose deployment/iperf3-server-b --port 5201
+skupper connector create iperf3-server-b 5201
 ~~~
 
 _**Public2:**_
 
 ~~~ shell
-skupper expose deployment/iperf3-server-c --port 5201
+skupper connector create iperf3-server-c 5201
 ~~~
 
-## Step 9: Run benchmark tests across the clusters
+## Step 9: Create listeners for the iperf3 services
+
+Listeners create service endpoints in each namespace so clients can reach those connectors.
+Configure listeners for every iperf3 service in each namespace.
+
+_**Private1:**_
+
+~~~ shell
+skupper listener create iperf3-server-a 5201
+skupper listener create iperf3-server-b 5201
+skupper listener create iperf3-server-c 5201
+~~~
+
+_**Public1:**_
+
+~~~ shell
+skupper listener create iperf3-server-a 5201
+skupper listener create iperf3-server-b 5201
+skupper listener create iperf3-server-c 5201
+~~~
+
+_**Public2:**_
+
+~~~ shell
+skupper listener create iperf3-server-a 5201
+skupper listener create iperf3-server-b 5201
+skupper listener create iperf3-server-c 5201
+~~~
+
+## Step 10: Run benchmark tests across the clusters
 
 After deploying the iperf3 servers into the private and public cloud clusters,
 the virtual application network enables communications even though they are 

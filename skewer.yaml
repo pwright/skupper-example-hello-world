@@ -45,11 +45,11 @@ steps:
       public2:
         - run: skupper token issue ~/private1-to-public2.token
         - run: skupper token redeem ~/public2-to-public1.token
-        # - run: skupper link status --wait 60
+        #- run: skupper link status --wait 60
       private1:
         - run: skupper token redeem ~/private1-to-public1.token
         - run: skupper token redeem ~/private1-to-public2.token
-        # - run: skupper link status --wait 60
+        #- run: skupper link status --wait 60
   - title: Deploy the iperf3 servers
     preamble: |
       After creating the application router network, deploy `iperf3` in each namespace.
@@ -60,29 +60,37 @@ steps:
         - run: kubectl apply -f deployment-iperf3-b.yaml
       "public2":
         - run: kubectl apply -f deployment-iperf3-c.yaml
-  - title: Expose iperf3 from each namespace
+  - title: Create connectors for the iperf3 servers
     preamble: |
-      We have established connectivity between the namespaces and deployed `iperf3`.
-      Before we can test performance, we need access to the `iperf3` from each namespace.
+      With Skupper v2, connectors run in the namespace where the workload is deployed.
+      Create a connector for each iperf3 server so the application network can reach the pods.
     commands:
-      "private1":
+      private1:
         - await_resource: deployment/iperf3-server-a
-        - run: skupper expose deployment/iperf3-server-a --port 5201
-        - await_resource: service/iperf3-server-a
-        - run: skupper service status
-          apply: test
-      "public1":
+        - run: skupper connector create iperf3-server-a 5201
+      public1:
         - await_resource: deployment/iperf3-server-b
-        - run: skupper expose deployment/iperf3-server-b --port 5201
-        - await_resource: service/iperf3-server-b
-        - run: skupper service status
-          apply: test
-      "public2":
+        - run: skupper connector create iperf3-server-b 5201
+      public2:
         - await_resource: deployment/iperf3-server-c
-        - run: skupper expose deployment/iperf3-server-c --port 5201
-        - await_resource: service/iperf3-server-c
-        - run: skupper service status
-          apply: test
+        - run: skupper connector create iperf3-server-c 5201
+  - title: Create listeners for the iperf3 services
+    preamble: |
+      Listeners create service endpoints in each namespace so clients can reach those connectors.
+      Configure listeners for every iperf3 service in each namespace.
+    commands:
+      private1:
+        - run: skupper listener create iperf3-server-a 5201
+        - run: skupper listener create iperf3-server-b 5201
+        - run: skupper listener create iperf3-server-c 5201
+      public1:
+        - run: skupper listener create iperf3-server-a 5201
+        - run: skupper listener create iperf3-server-b 5201
+        - run: skupper listener create iperf3-server-c 5201
+      public2:
+        - run: skupper listener create iperf3-server-a 5201
+        - run: skupper listener create iperf3-server-b 5201
+        - run: skupper listener create iperf3-server-c 5201
   - title: Run benchmark tests across the clusters
     preamble: |
       After deploying the iperf3 servers into the private and public cloud clusters,
