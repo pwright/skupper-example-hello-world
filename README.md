@@ -36,7 +36,7 @@ across cloud providers, data centers, and edge sites.
 This tutorial demonstrates how to perform real-time network throughput measurements across Kubernetes 
 using the iperf3 tool.
 In this tutorial you:
-* deploy iperf3 in three separate clusters
+* deploy iperf3 in two separate clusters
 * run iperf3 client test instances
 
 ## Prerequisites
@@ -44,11 +44,11 @@ In this tutorial you:
 * The `kubectl` command-line tool, version 1.15 or later
 ([installation guide][install-kubectl])
 
-* Access to three clusters to observe performance. 
-As an example, the three clusters might consist of:
+* Access to two clusters to observe performance. 
+As an example, the two clusters might consist of:
 
-* A private cloud cluster running on your local machine (**private1**)
-* Two public cloud clusters running in public cloud providers (**public1** and **public2**)
+* A private cloud cluster running on your local machine (**east**)
+* A public cloud cluster running in a public cloud provider (**west**)
 
 ## Step 1: Access your Kubernetes clusters
 
@@ -67,24 +67,17 @@ For each cluster, open a new terminal window.  In each terminal,
 set the `KUBECONFIG` environment variable to a different path and
 log in to your cluster.
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
-export KUBECONFIG=~/.kube/config-public1
+export KUBECONFIG=~/.kube/config-west
 <provider-specific login command>
 ~~~
 
-_**Public2:**_
+_**East:**_
 
 ~~~ shell
-export KUBECONFIG=~/.kube/config-public2
-<provider-specific login command>
-~~~
-
-_**Private1:**_
-
-~~~ shell
-export KUBECONFIG=~/.kube/config-private1
+export KUBECONFIG=~/.kube/config-east
 <provider-specific login command>
 ~~~
 
@@ -100,25 +93,18 @@ For each cluster, use `kubectl create namespace` and `kubectl
 config set-context` to create the namespace you wish to use and
 set the namespace on your current context.
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
-kubectl create namespace public1
-kubectl config set-context --current --namespace public1
+kubectl create namespace west
+kubectl config set-context --current --namespace west
 ~~~
 
-_**Public2:**_
+_**East:**_
 
 ~~~ shell
-kubectl create namespace public2
-kubectl config set-context --current --namespace public2
-~~~
-
-_**Private1:**_
-
-~~~ shell
-kubectl create namespace private1
-kubectl config set-context --current --namespace private1
+kubectl create namespace east
+kubectl config set-context --current --namespace east
 ~~~
 
 ## Step 3: Install Skupper on your Kubernetes clusters
@@ -130,19 +116,13 @@ controller.
 For each cluster, use `kubectl apply` with the Skupper
 installation YAML to install the CRDs and controller.
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
 kubectl apply -f https://skupper.io/v2/install.yaml
 ~~~
 
-_**Public2:**_
-
-~~~ shell
-kubectl apply -f https://skupper.io/v2/install.yaml
-~~~
-
-_**Private1:**_
+_**East:**_
 
 ~~~ shell
 kubectl apply -f https://skupper.io/v2/install.yaml
@@ -187,46 +167,32 @@ tunnel][minikube-tunnel] before you run `skupper site create`.
 
 [minikube-tunnel]: https://skupper.io/start/minikube.html#running-minikube-tunnel
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
-skupper site create public1 --enable-link-access
+skupper site create west --enable-link-access
 ~~~
 
 _Sample output:_
 
 ~~~ console
-$ skupper site create public1 --enable-link-access
+$ skupper site create west --enable-link-access
 Waiting for status...
-Site "public1" is configured. Check the status to see when it is ready
+Site "west" is configured. Check the status to see when it is ready
 ~~~
 
-_**Public2:**_
+_**East:**_
 
 ~~~ shell
-skupper site create public2 --enable-link-access
+skupper site create east --enable-link-access
 ~~~
 
 _Sample output:_
 
 ~~~ console
-$ skupper site create public2 --enable-link-access
+$ skupper site create east --enable-link-access
 Waiting for status...
-Site "public2" is configured. Check the status to see when it is ready
-~~~
-
-_**Private1:**_
-
-~~~ shell
-skupper site create private1 --enable-link-access
-~~~
-
-_Sample output:_
-
-~~~ console
-$ skupper site create private1 --enable-link-access
-Waiting for status...
-Site "private1" is configured. Check the status to see when it is ready
+Site "east" is configured. Check the status to see when it is ready
 ~~~
 
 You can use `skupper site status` at any time to check the status
@@ -249,28 +215,19 @@ to create the link.
 token can link to your site.  Make sure that only those you trust
 have access to it.
 
-First, use `skupper token issue` in Public1 to generate the token.
-Then, use `skupper token redeem` in Public2 to link the sites.
+First, use `skupper token issue` in West to generate the token.
+Then, use `skupper token redeem` in East to link the sites.
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
-skupper token issue ~/private1-to-public1.token
-skupper token issue ~/public2-to-public1.token
+skupper token issue ~/east-to-west.token
 ~~~
 
-_**Public2:**_
+_**East:**_
 
 ~~~ shell
-skupper token issue ~/private1-to-public2.token
-skupper token redeem ~/public2-to-public1.token
-~~~
-
-_**Private1:**_
-
-~~~ shell
-skupper token redeem ~/private1-to-public1.token
-skupper token redeem ~/private1-to-public2.token
+skupper token redeem ~/east-to-west.token
 ~~~
 
 If your terminal sessions are on different machines, you may need
@@ -282,22 +239,16 @@ being issued.
 
 After creating the application router network, deploy `iperf3` in each namespace.
 
-_**Private1:**_
+_**East:**_
 
 ~~~ shell
 kubectl apply -f deployment-iperf3-a.yaml
 ~~~
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
 kubectl apply -f deployment-iperf3-b.yaml
-~~~
-
-_**Public2:**_
-
-~~~ shell
-kubectl apply -f deployment-iperf3-c.yaml
 ~~~
 
 ## Step 8: Create connectors for the iperf3 servers
@@ -305,22 +256,16 @@ kubectl apply -f deployment-iperf3-c.yaml
 With Skupper v2, connectors run in the namespace where the workload is deployed.
 Create a connector for each iperf3 server so the application network can reach the pods.
 
-_**Private1:**_
+_**East:**_
 
 ~~~ shell
-skupper connector create iperf3-server-a 5201
+skupper connector create iperf3-server-a 5201 --workload deployment/iperf3-server-a
 ~~~
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
-skupper connector create iperf3-server-b 5201
-~~~
-
-_**Public2:**_
-
-~~~ shell
-skupper connector create iperf3-server-c 5201
+skupper connector create iperf3-server-b 5201 --workload deployment/iperf3-server-b
 ~~~
 
 ## Step 9: Create listeners for the iperf3 services
@@ -328,28 +273,18 @@ skupper connector create iperf3-server-c 5201
 Listeners create service endpoints in each namespace so clients can reach those connectors.
 Configure listeners for every iperf3 service in each namespace.
 
-_**Private1:**_
+_**East:**_
 
 ~~~ shell
 skupper listener create iperf3-server-a 5201
 skupper listener create iperf3-server-b 5201
-skupper listener create iperf3-server-c 5201
 ~~~
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
 skupper listener create iperf3-server-a 5201
 skupper listener create iperf3-server-b 5201
-skupper listener create iperf3-server-c 5201
-~~~
-
-_**Public2:**_
-
-~~~ shell
-skupper listener create iperf3-server-a 5201
-skupper listener create iperf3-server-b 5201
-skupper listener create iperf3-server-c 5201
 ~~~
 
 ## Step 10: Run benchmark tests across the clusters
@@ -358,28 +293,18 @@ After deploying the iperf3 servers into the private and public cloud clusters,
 the virtual application network enables communications even though they are 
 running in separate clusters.
 
-_**Private1:**_
+_**East:**_
 
 ~~~ shell
-kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a
-kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b
-kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c
+kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a > results/east-to-a.txt
+kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b > results/east-to-b.txt
 ~~~
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
-kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a
-kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b
-kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c
-~~~
-
-_**Public2:**_
-
-~~~ shell
-kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a
-kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b
-kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c
+kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a > results/west-to-a.txt
+kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b > results/west-to-b.txt
 ~~~
 
 ## Cleaning up
@@ -387,24 +312,17 @@ kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.ite
 To remove Skupper and the other resources from this exercise, use
 the following commands.
 
-_**Private1:**_
+_**East:**_
 
 ~~~ shell
 kubectl delete deployment iperf3-server-a
 skupper delete
 ~~~
 
-_**Public1:**_
+_**West:**_
 
 ~~~ shell
 kubectl delete deployment iperf3-server-b
-skupper delete
-~~~
-
-_**Public2:**_
-
-~~~ shell
-kubectl delete deployment iperf3-server-c
 skupper delete
 ~~~
 
