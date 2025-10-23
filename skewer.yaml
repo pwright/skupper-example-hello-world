@@ -67,19 +67,20 @@ steps:
     commands:
       private1:
         - await_resource: deployment/iperf3-server-a
-        - run: skupper connector create iperf3-server-a 5201
+        - run: kubectl apply -f conn-server-a.yaml
       public1:
         - await_resource: deployment/iperf3-server-b
-        - run: skupper connector create iperf3-server-b 5201
+        - run: kubectl apply -f conn-server-a.yaml
       public2:
         - await_resource: deployment/iperf3-server-c
-        - run: skupper connector create iperf3-server-c 5201
+        - run: kubectl apply -f conn-server-a.yaml
   - title: Create listeners for the iperf3 services
     preamble: |
       Listeners create service endpoints in each namespace so clients can reach those connectors.
       Configure listeners for every iperf3 service in each namespace.
     commands:
       private1:
+        - run: read a
         - run: skupper listener create iperf3-server-a 5201
         - run: skupper listener create iperf3-server-b 5201
         - run: skupper listener create iperf3-server-c 5201
@@ -97,15 +98,15 @@ steps:
       the virtual application network enables communications even though they are 
       running in separate clusters.
     commands:
-      "private1":
+      private1:
         - run: kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a
         - run: kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b
         - run: kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c
-      "public1":
+      public1:
         - run: kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a
         - run: kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b
         - run: kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c
-      "public2":
+      public2:
         - run: kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a
         - run: kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b
         - run: kubectl exec $(kubectl get pod -l application=iperf3-server-c -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-c

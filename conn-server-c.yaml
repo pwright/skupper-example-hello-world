@@ -1,0 +1,8 @@
+apiVersion: skupper.io/v2alpha1
+kind: Connector
+metadata:
+  name: iperf3-server-c
+spec:
+  routingKey: iperf3-server-c
+  selector: app=iperf3-server-c
+  port: 5201
