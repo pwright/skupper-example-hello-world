@@ -53,21 +53,30 @@ steps:
     commands:
       east:
         - await_resource: deployment/iperf3-server-a
-        - run: skupper connector create iperf3-server-a 5201 --workload deployment/iperf3-server-a 
+        - run: skupper connector create iperf3-server-east 5201 --workload deployment/iperf3-server-a 
       west:
         - await_resource: deployment/iperf3-server-b
-        - run: skupper connector create iperf3-server-b 5201 --workload deployment/iperf3-server-b 
+        - run: skupper connector create iperf3-server-west 5201 --workload deployment/iperf3-server-b 
   - title: Create listeners for the iperf3 services
     preamble: |
       Listeners create service endpoints in each namespace so clients can reach those connectors.
       Configure listeners for every iperf3 service in each namespace.
     commands:
       east:
-        - run: skupper listener create iperf3-server-a 5201
-        - run: skupper listener create iperf3-server-b 5201
+        - run: skupper listener create iperf3-server-east 5201
+        - run: skupper listener create iperf3-server-west 5201
       west:
-        - run: skupper listener create iperf3-server-a 5201
-        - run: skupper listener create iperf3-server-b 5201
+        - run: skupper listener create iperf3-server-east 5201
+        - run: skupper listener create iperf3-server-west 5201
+
+  - title: Install network observer and get console URL
+    preamble: |
+      You can use the Skupper console to monitor and troubleshoot your application network.
+      The console provides a visual overview of the sites, links, services, and communication metrics.
+    commands:
+      west:
+        - run: helm install skupper-network-observer oci://quay.io/skupper/helm/network-observer --version 2.1.2
+        - run: kubectl get secret skupper-network-observer-auth -o jsonpath='{.data.htpasswd}' | base64 -d | sed 's/\(.*\):{PLAIN}\(.*\)/\1 \2\n/'
   - title: Run benchmark tests across the clusters
     preamble: |
       After deploying the iperf3 servers into the private and public cloud clusters,
@@ -75,11 +84,11 @@ steps:
       running in separate clusters.
     commands:
       east:
-        - run: kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a > results/east-to-a.txt
-        - run: kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b > results/east-to-b.txt
+        - run: kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-east > results/a-to-east.log
+        - run: kubectl exec $(kubectl get pod -l application=iperf3-server-a -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-west > results/a-to-west.log
       west:
-        - run: kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-a > results/west-to-a.txt
-        - run: kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-b > results/west-to-b.txt
+        - run: kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-east > results/b-to-east.log
+        - run: kubectl exec $(kubectl get pod -l application=iperf3-server-b -o=jsonpath='{.items[0].metadata.name}') -- iperf3 -c iperf3-server-west > results/b-to-west.log
         - run: skupper debug dump
   - standard: skupper/cleaning_up/kubernetes_cli
     commands:
